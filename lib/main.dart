@@ -1,22 +1,33 @@
+// main.dart
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:project_2/View/Login.dart';
-import 'package:project_2/View/Sign_Up.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'package:project_2/View/Login_Student.dart';
+import 'package:project_2/View/Logout_Confirming.dart';
+import 'package:project_2/View/Sign_Up_Student.dart';
+import 'package:project_2/View/dashboard_student.dart';
+
+
+void main(){
+  // WidgetsFlutterBinding.ensureInitialized(); // تأكد من تهيئة Flutter
+  // final authService = AuthService(); // إنشاء instance من خدمة المصادقة
+  
+  // التحقق من وجود token عند بدء التشغيل
+  //final isLoggedIn = await authService.hasValidToken(); 
+  
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
+  
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MaterialApp(
+  
+      // توجيه المستخدم بناءً على حالة تسجيل الدخول
+    
+      home: Student_Dashboard(),
       debugShowCheckedModeBanner: false,
-      home: Login(),
-     // This trailing comma makes auto-formatting nicer for build methods.
+  
     );
   }
 }
