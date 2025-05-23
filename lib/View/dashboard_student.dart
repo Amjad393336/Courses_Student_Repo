@@ -651,7 +651,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'logout_confirming.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'Login_Student.dart';
+
 
 class Category {
   final String name;
@@ -716,6 +718,68 @@ class _Student_DashboardState extends State<Student_Dashboard> {
       setState(() => _isLoading = false);
     }
   }
+  Future<void> _logout() async {
+    // تأكد من صلاحية الـ form إن رغبت بابقاءه
+    setState(() => _isLoading = true);
+
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token') ?? '';
+    final tokenType = prefs.getString('token_type') ?? 'Bearer';
+
+    try {
+      final response = await _dio.post(
+        'http://192.168.1.16:8000/api/logout',
+        options: Options(
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': '$tokenType $token',
+          },
+        ),
+      );
+
+      // حذف التوكن من التخزين بعد logout ناجح
+      await prefs.remove('token');
+      await prefs.remove('token_type');
+      await prefs.remove('refresh_token');
+
+      // تنقل إلى شاشة Login
+      if (mounted) {
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (_) => const Login()),
+              (route) => false,
+        );
+      }
+    } on DioException catch (e) {
+      final statusCode = e.response?.statusCode;
+      final msg = e.response?.data['message'] ?? 'Logout error';
+
+      // إذا الكود 401 (Unauthorized) نمسح التوكن ونرجع لـ Login
+      // if (statusCode == 401) {
+      //   await prefs.remove('token');
+      //   await prefs.remove('token_type');
+      //   await prefs.remove('refresh_token');
+      //   if (mounted) {
+      //     Navigator.of(context).pushAndRemoveUntil(
+      //       MaterialPageRoute(builder: (_) => const Login()),
+      //           (route) => false,
+      //     );
+      //   }
+      //   return;
+      // }
+
+      // تظهر رسالة الخطأ
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(msg), backgroundColor: Colors.red),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Unknown error: $e'), backgroundColor: Colors.red),
+      );
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
+  }
+
 
   Future<void> _searchCategories(String query) async {
     final q = query.trim();
@@ -804,7 +868,7 @@ class _Student_DashboardState extends State<Student_Dashboard> {
         child: Column(
           children: [
             DrawerHeader(
-              decoration: const BoxDecoration(color: Color(0xFF3682D8)),
+              decoration: const BoxDecoration(color: Color.fromRGBO(100, 181, 246, 100)),
       child: Row(
                 children: const [
                   Icon(Icons.person, size: 40, color: Colors.black),
@@ -819,8 +883,9 @@ class _Student_DashboardState extends State<Student_Dashboard> {
               leading: const Icon(Icons.logout, color: Colors.black),
               title: const Text('Logout'),
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const LogOutConfirming()));
+                _logout();
+                // Navigator.of(context).push(MaterialPageRoute(
+                //     builder: (context) => const LogOutConfirming()));
               },
             ),
           ],
