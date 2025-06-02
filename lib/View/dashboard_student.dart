@@ -649,196 +649,585 @@
 //   }
 // }
 
+// import 'package:flutter/material.dart';
+// import 'package:dio/dio.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
+// import 'Login_Student.dart';
+
+
+// class Category {
+//   final String name;
+//   final String assetPath;
+//   final int rating;
+
+//   Category({required this.name, required this.assetPath, required this.rating});
+// }
+
+// class Student_Dashboard extends StatefulWidget {
+//   const Student_Dashboard({Key? key}) : super(key: key);
+
+//   @override
+//   State<Student_Dashboard> createState() => _Student_DashboardState();
+// }
+
+// class _Student_DashboardState extends State<Student_Dashboard> {
+//   final Dio _dio = Dio();
+//   bool _isLoading = true;
+//   List<Category> _categories = [];
+//   final TextEditingController _searchController = TextEditingController();
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _fetchCategories();
+//   }
+
+//   Future<void> _fetchCategories() async {
+//     setState(() => _isLoading = true);
+//     try {
+//       final response = await _dio.get('http://192.168.204.182:8000/api/categories');
+//       final data = response.data['data'] as List<dynamic>;
+//       _categories = data.map((e) {
+//         final name = (e['name'] as String).trim();
+//         String asset;
+//         int rating;
+//         switch (name) {
+//           case 'طبي':
+//             asset = 'images/medical_course.jpg';
+//             rating = 4;
+//             break;
+//           case 'رياضيات':
+//             asset = 'images/math1_edit.jpg';
+//             rating = 3;
+//             break;
+//           case 'كيمياء':
+//             asset = 'images/chemestry-course.jpg';
+//             rating = 5;
+//             break;
+//           default:
+//             asset = 'images/default_course.jpg';
+//             rating = 0;
+//         }
+//         return Category(name: name, assetPath: asset, rating: rating);
+//       }).toList();
+//     } catch (e) {
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(content: Text('Error loading categories: $e'), backgroundColor: Colors.red),
+//       );
+//     } finally {
+//       setState(() => _isLoading = false);
+//     }
+//   }
+//   Future<void> _logout() async {
+//     // تأكد من صلاحية الـ form إن رغبت بابقاءه
+//     setState(() => _isLoading = true);
+
+//     final prefs = await SharedPreferences.getInstance();
+//     // final token = prefs.getString('token') ?? '';
+//     // final tokenType = prefs.getString('token_type') ?? 'Bearer';
+
+//     try {
+//       // final response = await _dio.post(
+//       //   'http://192.168.1.16:8000/api/logout',
+//       //   options: Options(
+//       //     headers: {
+//       //       'Accept': 'application/json',
+//       //       'Authorization': '$tokenType $token',
+//       //     },
+//       //   ),
+//       // );
+
+//       // حذف التوكن من التخزين بعد logout ناجح
+//       await prefs.remove('token');
+//       await prefs.remove('token_type');
+//       await prefs.remove('refresh_token');
+
+//       // تنقل إلى شاشة Login
+//       if (mounted) {
+//         Navigator.of(context).pushAndRemoveUntil(
+//           MaterialPageRoute(builder: (_) => const Login()),
+//               (route) => false,
+//         );
+//       }
+//     } on DioException catch (e) {
+//      // final statusCode = e.response?.statusCode;
+//       final msg = e.response?.data['message'] ?? 'Logout error';
+
+//       // إذا الكود 401 (Unauthorized) نمسح التوكن ونرجع لـ Login
+//       // if (statusCode == 401) {
+//       //   await prefs.remove('token');
+//       //   await prefs.remove('token_type');
+//       //   await prefs.remove('refresh_token');
+//       //   if (mounted) {
+//       //     Navigator.of(context).pushAndRemoveUntil(
+//       //       MaterialPageRoute(builder: (_) => const Login()),
+//       //           (route) => false,
+//       //     );
+//       //   }
+//       //   return;
+//       // }
+
+//       // تظهر رسالة الخطأ
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(content: Text(msg), backgroundColor: Colors.red),
+//       );
+//     } catch (e) {
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(content: Text('Unknown error: $e'), backgroundColor: Colors.red),
+//       );
+//     } finally {
+//       if (mounted) setState(() => _isLoading = false);
+//     }
+//   }
+
+
+//   Future<void> _searchCategories(String query) async {
+//     final q = query.trim();
+//     if (q.isEmpty) {
+//       await _fetchCategories();
+//       return;
+//     }
+//     setState(() {
+//       _isLoading = true;
+//       _categories = [];
+//     });
+//     try {
+//       final response = await _dio.get(
+//         'http://192.168.204.182:8000/api/categories/search',
+//         queryParameters: {'query': q},
+//       );
+//       final status = response.data['status'] as String;
+//       final pageData = (response.data['data']['data'] as List<dynamic>);
+//       if (status == 'success' && pageData.isNotEmpty) {
+//         ScaffoldMessenger.of(context).showSnackBar(
+//           const SnackBar(
+//               content: Text('Found!'), backgroundColor: Colors.green),
+//         );
+//         _categories = pageData.map((e) {
+//           final name = (e['name'] as String).trim();
+//           String asset;
+//           int rating;
+//           switch (name) {
+//             case 'طبي':
+//               asset = 'images/medical_course.jpg';
+//               rating = 4;
+//               break;
+//             case 'رياضيات':
+//               asset = 'images/math1_edit.jpg';
+//               rating = 3;
+//               break;
+//             case 'كيمياء':
+//               asset = 'images/chemestry-course.jpg';
+//               rating = 5;
+//               break;
+//             default:
+//               asset = 'images/Login.jpg';
+//               rating = 1;
+//           }
+//           return Category(name: name, assetPath: asset, rating: rating);
+//         }).toList();
+//         // } else {
+//         //   ScaffoldMessenger.of(context).showSnackBar(
+//         //     SnackBar(content: Text('Not found'), backgroundColor: Colors.orange),
+//         //   );
+//         // }
+//       }
+//     } catch (e) {
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(content: Text('Not Found'), backgroundColor: Colors.red),
+//       );
+//     } finally {
+//       setState(() => _isLoading = false);
+//     }
+//   }
+
+//   @override
+//   void dispose() {
+//     _searchController.dispose();
+//     super.dispose();
+//   }
+
+//   Widget _buildStars(int count) {
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       children: List.generate(5, (i) {
+//         return Icon(
+//           i < count ? Icons.star : Icons.star_border,
+//           size: 16,
+//           color: Colors.amber,
+//         );
+//       }),
+//     );
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: Colors.white,
+//       drawer: Drawer(
+//         child: Column(
+//           children: [
+//             DrawerHeader(
+//               decoration: const BoxDecoration(color: Colors.lightBlue),
+//       child: Row(
+//                 children: const [
+//                   Icon(Icons.person, size: 40, color: Colors.black),
+//                   SizedBox(width: 10),
+//                   Text("Welcome Amjad",
+//                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+//                 ],
+//               ),
+
+//             ),
+//             ListTile(
+//               leading: const Icon(Icons.logout, color: Colors.black),
+//               title: const Text('Logout'),
+//               onTap: () {
+//                 _logout();
+//                 // Navigator.of(context).push(MaterialPageRoute(
+//                 //     builder: (context) => const LogOutConfirming()));
+//               },
+//             ),
+//           ],
+//         ),
+//       ),
+//       appBar: AppBar(
+//         backgroundColor: Colors.blue.shade300,
+//         elevation: 1,
+//         leading: Builder(
+//           builder: (ctx) => IconButton(
+//             icon: const Icon(Icons.menu, color: Colors.black),
+//             onPressed: () => Scaffold.of(ctx).openDrawer(),
+//           ),
+//         ),
+//         title: Container(
+//           height: 40,
+//           padding: const EdgeInsets.symmetric(horizontal: 12),
+//           decoration: BoxDecoration(
+//             color: Colors.grey.shade200,
+//             borderRadius: BorderRadius.circular(8),
+//           ),
+//           child: Row(
+//             children: [
+//               const Icon(Icons.search, color: Colors.grey),
+//               const SizedBox(width: 8),
+//               Expanded(
+//                 child: TextField(
+//                   controller: _searchController,
+//                   textDirection: TextDirection.rtl,
+//                   onSubmitted: _searchCategories,
+//                   decoration: InputDecoration(
+//                     hintText: 'ابحث عن فئة',
+//                     border: InputBorder.none,
+//                     hintStyle: TextStyle(color: Colors.grey.shade600),
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//         centerTitle: true,
+//         actions: [
+//           IconButton(
+//             icon: const Icon(Icons.account_balance_wallet_outlined, color: Colors.black),
+//             onPressed: () {},
+//           ),
+//         ],
+//       ),
+//       body: _isLoading
+//           ? const Center(child: CircularProgressIndicator())
+//           : Padding(
+//         padding: const EdgeInsets.all(12.0),
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Padding(
+//               padding: const EdgeInsets.symmetric(vertical: 8.0),
+//               child: Center(
+//                 child: Text(
+//                   'Recommended For You',
+//                   style: TextStyle(
+//                     fontSize: 20,
+//                     fontWeight: FontWeight.bold,
+//                     color: Colors.deepPurple.shade700,
+//                   ),
+//                 ),
+//               ),
+//             ),
+//             Expanded(
+//               child: GridView.builder(
+//                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+//                   crossAxisCount: 2,
+//                   crossAxisSpacing: 12,
+//                   mainAxisSpacing: 12,
+//                   childAspectRatio: 3 / 4,
+//                 ),
+//                 itemCount: _categories.length,
+//                 itemBuilder: (ctx, idx) {
+//                   final cat = _categories[idx];
+//                   return GestureDetector(
+//                     onTap: (){
+
+//                     },
+//                     child: Card(
+//                       shadowColor: Colors.black,
+//                       color: Colors.white,
+//                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+//                       elevation: 2,
+//                       child: Column(
+//                         crossAxisAlignment: CrossAxisAlignment.stretch,
+//                         children: [
+//                           Expanded(
+//                             child: ClipRRect(
+//                               borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+//                               child: Image.asset(cat.assetPath, fit: BoxFit.fill),
+//                             ),
+//                           ),
+//                           Padding(
+//                             padding: const EdgeInsets.all(8.0),
+//                             child: Column(
+//                               children: [
+//                                 Text(
+//                                   cat.name,
+//                                   textAlign: TextAlign.center,
+//                                   style: const TextStyle(fontWeight: FontWeight.bold),
+//                                 ),
+//                                 const SizedBox(height: 4),
+//                                 _buildStars(cat.rating),
+//                               ],
+//                             ),
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                   );
+//                 },
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+
+
+// lib/views/student_dashboard.dart
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+// import 'package:project_2/Controller/dashboard_controller.dart';
+// import 'package:project_2/View/wallet_view.dart';
+
+
+// class Student_Dashboard extends StatefulWidget {
+//   const Student_Dashboard({Key? key}) : super(key: key);
+
+//   @override
+//   State<Student_Dashboard> createState() => _StudentDashboardState();
+// }
+
+// class _StudentDashboardState extends State<Student_Dashboard> {
+//   final DashboardController controller = Get.put(DashboardController());
+//   late final TextEditingController _searchController;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _searchController = TextEditingController();
+//   }
+
+//   @override
+//   void dispose() {
+//     _searchController.dispose();
+//     super.dispose();
+//   }
+
+//   // Method to build star icons based on rating
+//   Widget buildStars(int count) {
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       children: List.generate(5, (i) {
+//         return Icon(
+//           i < count ? Icons.star : Icons.star_border,
+//           size: 16,
+//           color: Colors.amber,
+//         );
+//       }),
+//     );
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: Colors.white,
+//       drawer: Drawer(
+//         child: Column(
+//           children: [
+//             DrawerHeader(
+//               decoration: const BoxDecoration(color: Colors.lightBlue),
+//               child: Row(
+//                 children: const [
+//                   Icon(Icons.person, size: 40, color: Colors.black),
+//                   SizedBox(width: 10),
+//                   Text(
+//                     'Welcome Amjad',
+//                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+//                   ),
+//                 ],
+//               ),
+//             ),
+
+         
+//             const SizedBox(height: 20),
+//             ListTile(
+//               leading: const Icon(Icons.logout, color: Colors.black),
+//               title: const Text('Logout'),
+//               onTap: controller.logout,
+//             ),
+//           ],
+//         ),
+//       ),
+//       appBar: AppBar(
+//         backgroundColor: Colors.blue.shade300,
+//         elevation: 1,
+//         leading: Builder(
+//           builder: (ctx) => IconButton(
+//             icon: const Icon(Icons.menu, color: Colors.black),
+//             onPressed: () => Scaffold.of(ctx).openDrawer(),
+//           ),
+//         ),
+//         title: TextField(
+//           controller: _searchController,
+//           textDirection: TextDirection.rtl,
+//           decoration: InputDecoration(
+//             hintText: 'Search For Category',
+//             prefixIcon: const Icon(Icons.search, color: Colors.grey),
+//             filled: true,
+//             fillColor: Colors.grey.shade200,
+//             border: OutlineInputBorder(
+//               borderRadius: BorderRadius.circular(95),
+//               borderSide: BorderSide.none,
+//             ),
+//           ),
+//           onSubmitted: controller.searchCategories,
+//         ),
+//         centerTitle: true,
+//         actions: [
+//           IconButton(
+//             icon: const Icon(Icons.account_balance_wallet_outlined, color: Colors.black),
+//             onPressed: () {
+//              Get.to(WalletView());
+//             },
+//           ),
+//         ],
+//       ),
+//       body: Obx(() {
+//         if (controller.isLoading.value) {
+//           return const Center(child: CircularProgressIndicator());
+//         } else if (controller.noResults.value) {
+//           return const Center(child: Text('Not found', style: TextStyle(fontSize: 18, color: Colors.grey)));
+//         } else {
+//           return Padding(
+//             padding: const EdgeInsets.all(12.0),
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Padding(
+//                   padding: const EdgeInsets.symmetric(vertical: 8.0),
+//                   child: Center(
+//                     child: Text(
+//                       'Recommended For You',
+//                       style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.deepPurple.shade700),
+//                     ),
+//                   ),
+//                 ),
+//                 Expanded(
+//                   child: GridView.builder(
+//                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+//                       crossAxisCount: 2,
+//                       crossAxisSpacing: 12,
+//                       mainAxisSpacing: 12,
+//                       childAspectRatio: 3 / 4,
+//                     ),
+//                     itemCount: controller.categories.length,
+//                     itemBuilder: (ctx, idx) {
+//                       final cat = controller.categories[idx];
+//                       return GestureDetector(
+//                         onTap: () {},
+//                         child: Card(
+//                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+//                           elevation: 2,
+//                           child: Column(
+//                             children: [
+//                               Expanded(
+//                                 child: ClipRRect(
+//                                   borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+//                                   child: Image.asset(cat.assetPath, fit: BoxFit.fill),
+//                                 ),
+//                               ),
+//                               Padding(
+//                                 padding: const EdgeInsets.all(8.0),
+//                                 child: Column(
+//                                   children: [
+//                                     Text(cat.name, textAlign: TextAlign.center, style: const TextStyle(fontWeight: FontWeight.bold)),
+//                                     const SizedBox(height: 4),
+//                                     Row(
+//                                       mainAxisAlignment: MainAxisAlignment.center,
+//                                       children: List.generate(5, (i) => Icon(i < cat.rating ? Icons.star : Icons.star_border, size: 16, color: Colors.amber)),
+//                                     ),
+//                                   ],
+//                                 ),
+//                               ),
+//                             ],
+//                           ),
+//                         ),
+//                       );
+//                     },
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           );
+//         }
+//       }
+//       ),
+//     );
+//   }
+
+// }
+
+
+// lib/app/views/student_dashboard.dart
+
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'Login_Student.dart';
-
-
-class Category {
-  final String name;
-  final String assetPath;
-  final int rating;
-
-  Category({required this.name, required this.assetPath, required this.rating});
-}
+import 'package:get/get.dart';
+import 'package:project_2/Controller/dashboard_controller.dart';
+import 'package:project_2/View/wallet_view.dart';
 
 class Student_Dashboard extends StatefulWidget {
   const Student_Dashboard({Key? key}) : super(key: key);
 
   @override
-  State<Student_Dashboard> createState() => _Student_DashboardState();
+  State<Student_Dashboard> createState() => _StudentDashboardState();
 }
 
-class _Student_DashboardState extends State<Student_Dashboard> {
-  final Dio _dio = Dio();
-  bool _isLoading = true;
-  List<Category> _categories = [];
-  final TextEditingController _searchController = TextEditingController();
+class _StudentDashboardState extends State<Student_Dashboard> {
+  final DashboardController controller = Get.put(DashboardController());
+  late final TextEditingController _searchController;
+
+  /// مثال لخريطة الفئات الفرعية محلياً
+  final Map<String, List<String>> _subCategories = {
+    'طبي': ['تشخيص', 'علاج', 'صيدلة'],
+    'رياضيات': ['جبر', 'هندسة', 'إحصاء'],
+    'كيمياء': ['عضوية', 'غير عضوية', 'تحليلية'],
+    // يمكن إضافة المزيد لاحقاً بناءً على البيانات الحقيقية
+  };
 
   @override
   void initState() {
     super.initState();
-    _fetchCategories();
-  }
-
-  Future<void> _fetchCategories() async {
-    setState(() => _isLoading = true);
-    try {
-      final response = await _dio.get('http://192.168.1.16:8000/api/categories');
-      final data = response.data['data'] as List<dynamic>;
-      _categories = data.map((e) {
-        final name = (e['name'] as String).trim();
-        String asset;
-        int rating;
-        switch (name) {
-          case 'طبي':
-            asset = 'images/medical_course.jpg';
-            rating = 4;
-            break;
-          case 'رياضيات':
-            asset = 'images/math1_edit.jpg';
-            rating = 3;
-            break;
-          case 'كيمياء':
-            asset = 'images/chemestry-course.jpg';
-            rating = 5;
-            break;
-          default:
-            asset = 'images/default_course.jpg';
-            rating = 0;
-        }
-        return Category(name: name, assetPath: asset, rating: rating);
-      }).toList();
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error loading categories: $e'), backgroundColor: Colors.red),
-      );
-    } finally {
-      setState(() => _isLoading = false);
-    }
-  }
-  Future<void> _logout() async {
-    // تأكد من صلاحية الـ form إن رغبت بابقاءه
-    setState(() => _isLoading = true);
-
-    final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('token') ?? '';
-    final tokenType = prefs.getString('token_type') ?? 'Bearer';
-
-    try {
-      final response = await _dio.post(
-        'http://192.168.1.16:8000/api/logout',
-        options: Options(
-          headers: {
-            'Accept': 'application/json',
-            'Authorization': '$tokenType $token',
-          },
-        ),
-      );
-
-      // حذف التوكن من التخزين بعد logout ناجح
-      await prefs.remove('token');
-      await prefs.remove('token_type');
-      await prefs.remove('refresh_token');
-
-      // تنقل إلى شاشة Login
-      if (mounted) {
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (_) => const Login()),
-              (route) => false,
-        );
-      }
-    } on DioException catch (e) {
-      final statusCode = e.response?.statusCode;
-      final msg = e.response?.data['message'] ?? 'Logout error';
-
-      // إذا الكود 401 (Unauthorized) نمسح التوكن ونرجع لـ Login
-      // if (statusCode == 401) {
-      //   await prefs.remove('token');
-      //   await prefs.remove('token_type');
-      //   await prefs.remove('refresh_token');
-      //   if (mounted) {
-      //     Navigator.of(context).pushAndRemoveUntil(
-      //       MaterialPageRoute(builder: (_) => const Login()),
-      //           (route) => false,
-      //     );
-      //   }
-      //   return;
-      // }
-
-      // تظهر رسالة الخطأ
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(msg), backgroundColor: Colors.red),
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Unknown error: $e'), backgroundColor: Colors.red),
-      );
-    } finally {
-      if (mounted) setState(() => _isLoading = false);
-    }
-  }
-
-
-  Future<void> _searchCategories(String query) async {
-    final q = query.trim();
-    if (q.isEmpty) {
-      await _fetchCategories();
-      return;
-    }
-    setState(() {
-      _isLoading = true;
-      _categories = [];
-    });
-    try {
-      final response = await _dio.get(
-        'http://192.168.1.16:8000/api/categories/search',
-        queryParameters: {'query': q},
-      );
-      final status = response.data['status'] as String;
-      final pageData = (response.data['data']['data'] as List<dynamic>);
-      if (status == 'success' && pageData.isNotEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              content: Text('Found!'), backgroundColor: Colors.green),
-        );
-        _categories = pageData.map((e) {
-          final name = (e['name'] as String).trim();
-          String asset;
-          int rating;
-          switch (name) {
-            case 'طبي':
-              asset = 'images/medical_course.jpg';
-              rating = 4;
-              break;
-            case 'رياضيات':
-              asset = 'images/math1_edit.jpg';
-              rating = 3;
-              break;
-            case 'كيمياء':
-              asset = 'images/chemestry-course.jpg';
-              rating = 5;
-              break;
-            default:
-              asset = 'images/Login.jpg';
-              rating = 1;
-          }
-          return Category(name: name, assetPath: asset, rating: rating);
-        }).toList();
-        // } else {
-        //   ScaffoldMessenger.of(context).showSnackBar(
-        //     SnackBar(content: Text('Not found'), backgroundColor: Colors.orange),
-        //   );
-        // }
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Not Found'), backgroundColor: Colors.red),
-      );
-    } finally {
-      setState(() => _isLoading = false);
-    }
+    _searchController = TextEditingController();
   }
 
   @override
@@ -847,7 +1236,8 @@ class _Student_DashboardState extends State<Student_Dashboard> {
     super.dispose();
   }
 
-  Widget _buildStars(int count) {
+  /// يبني صف النجوم بناءً على التقييم
+  Widget buildStars(int count) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(5, (i) {
@@ -864,33 +1254,73 @@ class _Student_DashboardState extends State<Student_Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      drawer: Drawer(
-        child: Column(
-          children: [
-            DrawerHeader(
-              decoration: const BoxDecoration(color: Color.fromRGBO(100, 181, 246, 100)),
-      child: Row(
-                children: const [
-                  Icon(Icons.person, size: 40, color: Colors.black),
-                  SizedBox(width: 10),
-                  Text("Welcome Amjad",
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                ],
-              ),
 
-            ),
-            ListTile(
-              leading: const Icon(Icons.logout, color: Colors.black),
-              title: const Text('Logout'),
-              onTap: () {
-                _logout();
-                // Navigator.of(context).push(MaterialPageRoute(
-                //     builder: (context) => const LogOutConfirming()));
-              },
-            ),
-          ],
-        ),
+      /// الدروار الرئيس
+      drawer: Drawer(
+        child: Obx(() {
+          final cats = controller.categories;
+          return Column(
+            children: [
+              const DrawerHeader(
+                decoration: BoxDecoration(color: Colors.lightBlue),
+                child: Row(
+                  children: [
+                    Icon(Icons.person, size: 40, color: Colors.black),
+                    SizedBox(width: 10),
+                    Text(
+                      'Welcome Amjad',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: cats.length,
+                  itemBuilder: (ctx, idx) {
+                    final cat = cats[idx];
+                    final subList = _subCategories[cat.name] ?? [];
+                    return Theme(
+                      data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+                      child: ExpansionTile(
+                        title: Text(
+                          cat.name,
+                          style: const TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                        trailing: const Icon(Icons.keyboard_arrow_down),
+                        children: subList.isNotEmpty
+                            ? subList
+                                .map((sub) => ListTile(
+                                      title: Text(sub),
+                                      leading: const Icon(Icons.arrow_right),
+                                      onTap: () {
+                                        // TODO: عند النقر على الفئة الفرعية، قم بالمعالجة اللازمة
+                                      },
+                                    ))
+                                .toList()
+                            : [
+                                const ListTile(
+                                  title: Text('لا توجد فئات فرعية'),
+                                  leading: Icon(Icons.info_outline),
+                                )
+                              ],
+                      ),
+                    );
+                  },
+                ),
+              ),
+              const Divider(),
+              ListTile(
+                leading: const Icon(Icons.logout, color: Colors.black),
+                title: const Text('Logout'),
+                onTap: controller.logout,
+              ),
+              const SizedBox(height: 12),
+            ],
+          );
+        }),
       ),
+
       appBar: AppBar(
         backgroundColor: Colors.blue.shade300,
         elevation: 1,
@@ -900,115 +1330,112 @@ class _Student_DashboardState extends State<Student_Dashboard> {
             onPressed: () => Scaffold.of(ctx).openDrawer(),
           ),
         ),
-        title: Container(
-          height: 40,
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          decoration: BoxDecoration(
-            color: Colors.grey.shade200,
-            borderRadius: BorderRadius.circular(8),
+        title: TextField(
+          controller: _searchController,
+          textDirection: TextDirection.rtl,
+          decoration: InputDecoration(
+            hintText: 'Search For Category',
+            prefixIcon: const Icon(Icons.search, color: Colors.grey),
+            filled: true,
+            fillColor: Colors.grey.shade200,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(95),
+              borderSide: BorderSide.none,
+            ),
           ),
-          child: Row(
-            children: [
-              const Icon(Icons.search, color: Colors.grey),
-              const SizedBox(width: 8),
-              Expanded(
-                child: TextField(
-                  controller: _searchController,
-                  textDirection: TextDirection.rtl,
-                  onSubmitted: _searchCategories,
-                  decoration: InputDecoration(
-                    hintText: 'ابحث عن فئة',
-                    border: InputBorder.none,
-                    hintStyle: TextStyle(color: Colors.grey.shade600),
-                  ),
-                ),
-              ),
-            ],
-          ),
+          onSubmitted: controller.searchCategories,
         ),
         centerTitle: true,
         actions: [
           IconButton(
             icon: const Icon(Icons.account_balance_wallet_outlined, color: Colors.black),
-            onPressed: () {},
+            onPressed: () {
+              Get.to(() => const WalletView());
+            },
           ),
         ],
       ),
-      body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Center(
-                child: Text(
-                  'Recommended For You',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.deepPurple.shade700,
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 12,
-                  mainAxisSpacing: 12,
-                  childAspectRatio: 3 / 4,
-                ),
-                itemCount: _categories.length,
-                itemBuilder: (ctx, idx) {
-                  final cat = _categories[idx];
-                  return GestureDetector(
-                    onTap: (){
 
-                    },
-                    child: Card(
-                      shadowColor: Colors.black,
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                      elevation: 2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Expanded(
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-                              child: Image.asset(cat.assetPath, fit: BoxFit.fill),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                Text(
-                                  cat.name,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(height: 4),
-                                _buildStars(cat.rating),
-                              ],
-                            ),
-                          ),
-                        ],
+      body: Obx(() {
+        if (controller.isLoading.value) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (controller.noResults.value) {
+          return const Center(
+            child: Text('Not found', style: TextStyle(fontSize: 18, color: Colors.grey)),
+          );
+        } else {
+          return Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Center(
+                    child: Text(
+                      'Recommended For You',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepPurple.shade700,
                       ),
                     ),
-                  );
-                },
-              ),
+                  ),
+                ),
+                Expanded(
+                  child: GridView.builder(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 12,
+                      mainAxisSpacing: 12,
+                      childAspectRatio: 3 / 4,
+                    ),
+                    itemCount: controller.categories.length,
+                    itemBuilder: (ctx, idx) {
+                      final cat = controller.categories[idx];
+                      return GestureDetector(
+                        onTap: () {
+                          // TODO: عند الضغط على كرت الكورس
+                        },
+                        child: Card(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                          elevation: 2,
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: ClipRRect(
+                                  borderRadius:
+                                      const BorderRadius.vertical(top: Radius.circular(12)),
+                                  child: Image.asset(cat.assetPath, fit: BoxFit.fill),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      cat.name,
+                                      textAlign: TextAlign.center,
+                                      style:
+                                          const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    buildStars(cat.rating),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          );
+        }
+      }),
     );
   }
 }
-
-
