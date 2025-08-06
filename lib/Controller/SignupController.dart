@@ -40,7 +40,7 @@ class SignupController extends GetxController {
         dateOfBirth: dob.value,
       );
       final resp = await _dio.post(
-        'http://192.168.1.16:8000/api/student/register',
+        'http://192.168.1.5:8000/api/student/register',
         data: req.toJson(),
         options: Options(
           headers: {'Accept': 'application/json'},
