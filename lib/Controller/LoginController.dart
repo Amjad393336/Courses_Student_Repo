@@ -1,14 +1,12 @@
-import 'dart:ui';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:project_2/Model/Auth_Response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../View/dashboard_student.dart';
 import '../../View/Sign_Up_Student.dart';
 import '../../View/Login_Student.dart';
+import '../Model/Auth_Response.dart';
 
 class LoginController extends GetxController {
   final Dio _dio = Dio();
@@ -25,7 +23,7 @@ class LoginController extends GetxController {
     isLoading.value = true;
     try {
       final response = await _dio.post(
-        'http://192.168.1.16:8000/api/login',
+        'http://192.168.1.5:8000/api/login', // غيّر الرابط حسب ما عندك
         data: {'email': email.value, 'password': password.value},
         options: Options(headers: {'Accept': 'application/json'}),
       );
@@ -34,7 +32,7 @@ class LoginController extends GetxController {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('token', auth.token);
         await prefs.setString('token_type', auth.tokenType);
-        await prefs.setString('refresh_token', auth.refreshToken);
+
         Get.offAll(() => const Student_Dashboard());
       } else {
         Get.snackbar('Login Failed', 'HTTP ${response.statusCode}', backgroundColor: const Color(0xFFEF5350), colorText: Colors.white);
@@ -43,7 +41,9 @@ class LoginController extends GetxController {
       final msg = e.response?.data['message'] ?? 'Login failed';
       Get.snackbar('Error', msg, backgroundColor: const Color(0xFFEF5350), colorText: Colors.white);
     } catch (e) {
-      Get.snackbar('Error', e.toString(), backgroundColor: const Color(0xFFEF5350), colorText: Colors.white);
+      Get.snackbar(
+          duration: const Duration(seconds: 40),
+          'Error', e.toString(), backgroundColor: const Color(0xFFEF5350), colorText: Colors.white);
     } finally {
       isLoading.value = false;
     }

@@ -216,7 +216,7 @@ class ChargeWalletController extends GetxController {
       }
 
       final resp = await _dio.get(
-        'http://192.168.1.16:8000/api/wallet/student/balance',
+        'http://192.168.1.5:8000/api/wallet/student/balance',
         options: Options(
           headers: {
             'Accept': 'application/json',
@@ -292,7 +292,7 @@ class ChargeWalletController extends GetxController {
       }
 
       final resp = await _dio.post(
-        'http://192.168.1.16:8000/api/wallet/student/charge',
+        'http://192.168.1.5:8000/api/wallet/student/charge',
         options: Options(
           headers: {
             'Accept': 'application/json',

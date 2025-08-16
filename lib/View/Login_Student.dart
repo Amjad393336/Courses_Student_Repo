@@ -382,8 +382,11 @@ class Login extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             TextField(
-              decoration: const InputDecoration(labelText: 'Password', border: OutlineInputBorder(), prefixIcon: Icon(Icons.lock)),
-              obscureText: true,
+
+              decoration: const InputDecoration(
+
+                  labelText: 'Password', border: OutlineInputBorder(), prefixIcon: Icon(Icons.lock)),
+              obscureText: false,
               onChanged: (v) => ctrl.password.value = v,
             ),
             const SizedBox(height: 25),

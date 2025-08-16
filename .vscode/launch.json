@@ -1,26 +1,38 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    // VS Code uses JSON with comments (JSONC) هنا فمسموح التعليقات
     "version": "0.2.0",
     "configurations": [
         
-
         {
-            "name": "Project_2_flutter",
+            // تشغيل عادي مع Debug (F5)
+            "name": "Flutter (Debug)",
+            "type": "dart",
             "request": "launch",
-            "type": "dart"
+            "program": "lib/main.dart"
+            // ممكن تضيف "deviceId": "chrome" أو "windows" أو id المحاكي إذا بدك تفرض جهاز معيّن
         },
         {
-            "name": "Project_2_flutter (profile mode)",
-            "request": "launch",
+            // تشغيل بدون Debug (Ctrl+F5)
+            "name": "Flutter (Run Without Debug)",
             "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "noDebug": true
+        },
+        {
+            // وضع الأداء
+            "name": "Flutter (Profile)",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart",
             "flutterMode": "profile"
         },
         {
-            "name": "Project_2_flutter (release mode)",
-            "request": "launch",
+            // وضع الإصدار النهائي
+            "name": "Flutter (Release)",
             "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart",
             "flutterMode": "release"
         }
     ]

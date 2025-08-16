@@ -337,7 +337,7 @@ class SignUpScreen extends StatelessWidget {
 
                   TextFormField(
                     onChanged: (v) => ctrl.password.value = v,
-                    obscureText: true,
+                    obscureText: false,
                     decoration: const InputDecoration(
                       labelText: 'Password',
                       border: OutlineInputBorder(),
