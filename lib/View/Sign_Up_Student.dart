@@ -277,30 +277,37 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_2/Controller/SignupController.dart';
-
 import '../../View/dashboard_student.dart';
 
+// شاشة تسجيل الحساب (Sign Up)
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // ربط واجهة التسجيل مع الـ SignupController عبر GetX
     final ctrl = Get.put(SignupController());
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
         children: [
+          // محتوى الشاشة الرئيسي قابل للتمرير
           SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  // صورة في الأعلى
                   Image.asset('images/signup.jpg', height: 300, fit: BoxFit.cover),
                   const SizedBox(height: 20),
 
+                  // حقل "First Name"
                   TextFormField(
-
+                    // هذا السطر يحدّث قيمة firstName داخل SignupController
+                    // بحيث كل مرة يكتب المستخدم نص جديد في الحقل، يتغير المتغير الـ Rx
+                    // v = القيمة الجديدة، ctrl.firstName.value = v معناها خزّن النص الجديد داخل observable
                     onChanged: (v) => ctrl.firstName.value = v,
                     decoration: const InputDecoration(
                       labelText: 'First Name',
@@ -310,7 +317,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
 
-
+                  // حقل "Last Name"
                   TextFormField(
                     onChanged: (v) => ctrl.lastName.value = v,
                     decoration: const InputDecoration(
@@ -321,9 +328,8 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
 
-
+                  // حقل "Email"
                   TextFormField(
-
                     onChanged: (v) => ctrl.email.value = v,
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
@@ -334,10 +340,10 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
 
-
+                  // حقل "Password"
                   TextFormField(
                     onChanged: (v) => ctrl.password.value = v,
-                    obscureText: true,
+                    obscureText: false, // هنا ممكن تغيرها لـ true لو بدك تخفي الباسورد
                     decoration: const InputDecoration(
                       labelText: 'Password',
                       border: OutlineInputBorder(),
@@ -346,7 +352,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
 
-
+                  // حقل "Phone"
                   TextFormField(
                     onChanged: (v) => ctrl.phone.value = v,
                     keyboardType: TextInputType.phone,
@@ -358,7 +364,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
 
-
+                  // حقل "Country"
                   TextFormField(
                     onChanged: (v) => ctrl.country.value = v,
                     decoration: const InputDecoration(
@@ -369,7 +375,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
 
-
+                  // حقل "City"
                   TextFormField(
                     onChanged: (v) => ctrl.city.value = v,
                     decoration: const InputDecoration(
@@ -380,7 +386,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
 
-
+                  // حقل "Gender"
                   TextFormField(
                     onChanged: (v) => ctrl.gender.value = v,
                     decoration: const InputDecoration(
@@ -391,7 +397,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
 
-
+                  // حقل "Role"
                   TextFormField(
                     onChanged: (v) => ctrl.role.value = v,
                     decoration: const InputDecoration(
@@ -402,7 +408,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 15),
 
-
+                  // حقل "Date of Birth"
                   TextFormField(
                     onChanged: (v) => ctrl.dob.value = v,
                     decoration: const InputDecoration(
@@ -412,7 +418,11 @@ class SignUpScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 25),
+
+                  // زر "SIGN UP"
+                  // مغطى بـ Obx لأنه يعتمد على ctrl.isLoading
                   Obx(() => ElevatedButton(
+                        // إذا isLoading = true -> الزر يصير معطل
                         onPressed: ctrl.isLoading.value ? null : ctrl.registerUser,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blue.shade300,
@@ -422,13 +432,18 @@ class SignUpScreen extends StatelessWidget {
                           elevation: 5,
                         ),
                         child: ctrl.isLoading.value
-                            ? const CircularProgressIndicator(color: Colors.white)
-                            : const Text('SIGN UP', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                            ? const CircularProgressIndicator(color: Colors.white) // مؤشر تحميل
+                            : const Text(
+                                'SIGN UP',
+                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
                       )),
                 ],
               ),
             ),
           ),
+
+          // Overlay غامق مع مؤشر تحميل لو isLoading = true
           Obx(() => ctrl.isLoading.value
               ? Container(
                   color: Colors.black.withOpacity(0.7),

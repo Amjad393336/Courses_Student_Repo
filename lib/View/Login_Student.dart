@@ -357,55 +357,89 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_2/Controller/LoginController.dart';
 
+// شاشة تسجيل الدخول
 class Login extends StatelessWidget {
   const Login({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // ربط واجهة تسجيل الدخول مع LoginController عبر GetX
     final ctrl = Get.put(LoginController());
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(25),
+        padding: const EdgeInsets.all(25), // هوامش حول المحتوى
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            // صورة في أعلى الشاشة
             Image.asset('images/log_in.jpg'),
             const SizedBox(height: 20),
+
+            // حقل إدخال البريد الإلكتروني
             TextField(
-
-              decoration: const InputDecoration(labelText: 'Email', border: OutlineInputBorder(
-
-              ), prefixIcon: Icon(Icons.email)),
-              keyboardType: TextInputType.emailAddress,
+              decoration: const InputDecoration(
+                labelText: 'Email',
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.email), // أيقونة البريد
+              ),
+              keyboardType: TextInputType
+                  .emailAddress, // يظهر لوحة مفاتيح خاصة بالبريد
+              // كل ما المستخدم يغيّر النص يتم تحديث قيمة ctrl.email
               onChanged: (v) => ctrl.email.value = v,
             ),
             const SizedBox(height: 15),
+
+            // حقل إدخال كلمة المرور
             TextField(
-              decoration: const InputDecoration(labelText: 'Password', border: OutlineInputBorder(), prefixIcon: Icon(Icons.lock)),
-              obscureText: true,
+              decoration: const InputDecoration(
+                labelText: 'Password',
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.lock), // أيقونة القفل
+              ),
+              obscureText:
+                  false, // إذا جعلناها true نخفي النص (لإظهار **** بدل كلمة المرور)
+              // تحديث قيمة ctrl.password كل ما يكتب المستخدم
               onChanged: (v) => ctrl.password.value = v,
             ),
             const SizedBox(height: 25),
+
+            // زر تسجيل الدخول
+            // ملفوف بـ Obx لأنه يعتمد على ctrl.isLoading
             Obx(() => ElevatedButton(
+                  // إذا isLoading = true الزر يتعطل
                   onPressed: ctrl.isLoading.value ? null : ctrl.loginUser,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue.shade300,
                     padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
                   ),
+                  // إذا isLoading = true يظهر مؤشر تحميل بدلاً من النص
                   child: ctrl.isLoading.value
                       ? const CircularProgressIndicator(color: Colors.white)
-                      : const Text('Login', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                      : const Text(
+                          'Login',
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
                 )),
             const SizedBox(height: 30),
+
+            // رابط للانتقال إلى شاشة التسجيل (Sign Up)
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text("Don't have an account? "),
                 GestureDetector(
-                  onTap: ctrl.goToSignUp,
-                  child: Text('Sign Up', style: TextStyle(color: Colors.blue.shade800, fontWeight: FontWeight.bold)),
+                  onTap: ctrl.goToSignUp, // استدعاء دالة الانتقال للتسجيل
+                  child: Text(
+                    'Sign Up',
+                    style: TextStyle(
+                        color: Colors.blue.shade800,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
               ],
             ),
@@ -415,3 +449,4 @@ class Login extends StatelessWidget {
     );
   }
 }
+

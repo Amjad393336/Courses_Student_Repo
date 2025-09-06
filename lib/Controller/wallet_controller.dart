@@ -7,7 +7,6 @@
 
 // import '../Model/balance_model.dart';
 
-
 // class WalletController extends GetxController {
 //   final Dio _dio = Dio();
 //   final _isLoading = false.obs;
@@ -68,7 +67,6 @@
 //         'Error',
 //         msg,
 //         backgroundColor: Colors.red
-
 
 //       );
 //     } catch (e) {
@@ -217,7 +215,7 @@ class WalletController extends GetxController {
       }
 
       final response = await _dio.get(
-        'http://192.168.1.16:8000/api/wallet/student/balance',
+        'http://192.168.1.5:8000/api/wallet/student/balance',
         options: Options(
           headers: {
             'Accept': 'application/json',
@@ -232,13 +230,14 @@ class WalletController extends GetxController {
         _balance.value = model.balance;
       } else {
         // هنا نتفحص الرسالة العائدة من الـ API
-        final serverMsg = response.data['message'] as String? ?? 'خطأ غير معروف';
+        final serverMsg =
+            response.data['message'] as String? ?? 'خطأ غير معروف';
 
         // إذا كانت الرسالة تفيد بأن المستخدم ليس طالباً
         if (serverMsg == 'هذا المستخدم ليس طالبًا.') {
           Get.snackbar(
             'Error',
-          'You Must Login First',
+            'You Must Login First',
             backgroundColor: Colors.red,
             colorText: Colors.white,
           );
@@ -255,8 +254,7 @@ class WalletController extends GetxController {
         }
       }
     } on DioException catch (e) {
-      final msg =
-          e.response?.data['message'] as String? ?? 'Connection Error';
+      final msg = e.response?.data['message'] as String? ?? 'Connection Error';
       Get.snackbar(
         'Error',
         msg,

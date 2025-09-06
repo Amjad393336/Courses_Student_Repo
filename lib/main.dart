@@ -191,69 +191,85 @@ import 'package:project_2/View/Login_Student.dart';
 import 'package:project_2/View/dashboard_student.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 void main() {
+  // تأكد من تهيئة Flutter Widgets قبل تشغيل التطبيق
   WidgetsFlutterBinding.ensureInitialized();
+
+  // شغّل التطبيق الأساسي
   runApp(MyApp());
 }
 
+// التطبيق الأساسي (Stateless لأنه ما فيه حالة تتغير داخله)
 class MyApp extends StatelessWidget {
-  
-
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Your App',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: SplashScreen(),
+      title: 'Your App', // عنوان التطبيق
+      debugShowCheckedModeBanner: false, // إخفاء شريط debug
+      theme: ThemeData(
+        primarySwatch: Colors.blue, // اللون الأساسي للتطبيق
+      ),
+      home: SplashScreen(), // أول شاشة تظهر هي شاشة البداية (Splash)
     );
   }
 }
 
+// شاشة البداية (Splash Screen)
 class SplashScreen extends StatefulWidget {
-
-
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
 
+// الحالة الخاصة بشاشة البداية
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
-  late AnimationController _ctrl;
-  late Animation<double> _opacity;
-  late Animation<double> _scale;
+  late AnimationController _ctrl; // المتحكم بالأنيميشن
+  late Animation<double> _opacity; // حركة الشفافية
+  late Animation<double> _scale;   // حركة التكبير/التصغير
 
   @override
   void initState() {
     super.initState();
-    _ctrl = AnimationController(
 
-      vsync: this,
-      duration: Duration(milliseconds: 1200),
+    // إنشاء المتحكم مع مدة الحركة
+    _ctrl = AnimationController(
+      vsync: this, // عشان يربط الأنيميشن مع دورة حياة الـ widget
+      duration: Duration(milliseconds: 1200), // المدة: 1.2 ثانية
     );
 
+    // حركة الشفافية من 0 (مخفي) إلى 1 (ظاهر)
     _opacity = Tween(begin: 0.0, end: 1.0).animate(
-
       CurvedAnimation(parent: _ctrl, curve: Curves.easeIn),
     );
 
+    // حركة التكبير من 0.8x إلى 1x مع مرونة (elastic effect)
     _scale = Tween(begin: 0.8, end: 1.0).animate(
       CurvedAnimation(parent: _ctrl, curve: Curves.elasticOut),
     );
+
+    // بدء تشغيل الأنيميشن
     _ctrl.forward();
+
+    // بعد 3 ثواني يتم الانتقال للشاشة التالية
     Future.delayed(Duration(seconds: 3), _navigateNext);
   }
 
+  // تحديد الوجهة التالية بعد شاشة البداية
   Future<void> _navigateNext() async {
+    // استرجاع الـ SharedPreferences للتحقق من وجود token
     final prefs = await SharedPreferences.getInstance();
     final hasToken = (prefs.getString('token') ?? '').isNotEmpty;
+
+    // إذا كان الـ widget لم يعد موجود، نوقف التنفيذ
     if (!mounted) return;
+
+    // إذا فيه token => روح لواجهة الطالب، غير كذا => روح لشاشة تسجيل الدخول
     Get.to(hasToken ? Student_Dashboard() : Login());
   }
 
   @override
   void dispose() {
+    // إتلاف المتحكم بالأنيميشن لتفادي الـ memory leak
     _ctrl.dispose();
     super.dispose();
   }
@@ -261,19 +277,19 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white, // خلفية الشاشة بيضاء
       body: Center(
         child: FadeTransition(
-          opacity: _opacity,
+          opacity: _opacity, // تطبيق أنيميشن الشفافية
           child: ScaleTransition(
-            scale: _scale,
+            scale: _scale,   // تطبيق أنيميشن التكبير/التصغير
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(16), // حواف دائرية للصورة
               child: Image.asset(
-                'images/splash.jpg',
+                'images/splash.jpg', // صورة شاشة البداية
                 width: 200,
                 height: 200,
-                fit: BoxFit.cover,
+                fit: BoxFit.cover,   // تغطية المساحة بدون فراغات
               ),
             ),
           ),
@@ -282,3 +298,4 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 }
+
