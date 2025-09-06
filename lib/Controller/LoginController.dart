@@ -22,11 +22,23 @@ class LoginController extends GetxController {
   Future<void> loginUser() async {
     // التحقق إذا كان الحقول فارغة
     if (email.value.isEmpty || password.value.isEmpty) {
+<<<<<<< HEAD
       Get.snackbar(
         'Error',
         'Please fill all fields',
         backgroundColor: const Color(0xFFEF5350),
         colorText: Colors.white,
+=======
+      Get.snackbar('Error', 'Please fill all fields', backgroundColor: const Color(0xFFEF5350), colorText: Colors.white);
+      return;
+    }
+    isLoading.value = true;
+    try {
+      final response = await _dio.post(
+        'http://192.168.1.5:8000/api/login', // غيّر الرابط حسب ما عندك
+        data: {'email': email.value, 'password': password.value},
+        options: Options(headers: {'Accept': 'application/json'}),
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
       );
       return; // وقف العملية إذا في نقص بالبيانات
     }
@@ -57,7 +69,10 @@ class LoginController extends GetxController {
         await prefs.setString('token', auth.token);
         await prefs.setString('token_type', auth.tokenType);
 
+<<<<<<< HEAD
         // الانتقال مباشرة إلى لوحة الطالب
+=======
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
         Get.offAll(() => const Student_Dashboard());
       } else {
         // إذا الرد فشل (statusCode != 200)
@@ -78,6 +93,7 @@ class LoginController extends GetxController {
         colorText: Colors.white,
       );
     } catch (e) {
+<<<<<<< HEAD
       // معالجة أي استثناءات أخرى غير متوقعة
       Get.snackbar(
         'Error',
@@ -86,6 +102,11 @@ class LoginController extends GetxController {
         backgroundColor: const Color(0xFFEF5350),
         colorText: Colors.white,
       );
+=======
+      Get.snackbar(
+          duration: const Duration(seconds: 40),
+          'Error', e.toString(), backgroundColor: const Color(0xFFEF5350), colorText: Colors.white);
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
     } finally {
       // إخفاء مؤشر التحميل في جميع الحالات
       isLoading.value = false;

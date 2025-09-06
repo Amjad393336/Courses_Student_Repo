@@ -24,7 +24,11 @@
 // // //   Future<void> fetchCategories() async {
 // // //     isLoading.value = true;
 // // //     try {
+<<<<<<< HEAD
 // // //       final response = await _dio.get('http://192.168.1.5:8000:8000/api/categories');
+=======
+// // //       final response = await _dio.get('http://192.168.1.5:8000/api/categories');
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 // // //       final data = response.data['data'] as List<dynamic>;
 // // //       categories.value = data.map((e) => Category.fromJson(e)).toList();
 // // //     } catch (e) {
@@ -88,7 +92,11 @@
 // //     isLoading.value = true;
 // //     searchingByTeacher.value = false;
 // //     try {
+<<<<<<< HEAD
 // //       final response = await _dio.get('http://192.168.1.5:8000:8000/api/categories');
+=======
+// //       final response = await _dio.get('http://192.168.1.5:8000/api/categories');
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 // //       final data = response.data['data'] as List<dynamic>;
 // //       categories.value = data.map((e) => Category.fromJson(e)).toList();
 // //       noResults.value = categories.isEmpty;
@@ -109,7 +117,11 @@
 // //     searchingByTeacher.value = true;
 // //     try {
 // //       final response = await _dio.post(
+<<<<<<< HEAD
 // //         'http://192.168.1.5:8000:8000/api/courses/byTeacher',
+=======
+// //         'http://192.168.1.5:8000/api/courses/byTeacher',
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 // //         data: {'teacher_name': teacherName},
 // //         options: Options(headers: {'Accept': 'application/json'}),
 // //       );
@@ -186,7 +198,11 @@
 // //     searchingByCourse.value = false;
 // //     noResults.value = false;
 // //     try {
+<<<<<<< HEAD
 // //       final response = await _dio.get('http://192.168.1.5:8000:8000/api/categories');
+=======
+// //       final response = await _dio.get('http://192.168.1.5:8000/api/categories');
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 // //       final data = response.data['data'] as List<dynamic>;
 // //       categories.value = data.map((e) => Category.fromJson(e)).toList();
 // //       noResults.value = categories.isEmpty;
@@ -208,7 +224,11 @@
 // //
 // //     try {
 // //       final response = await _dio.post(
+<<<<<<< HEAD
 // //         'http://192.168.1.5:8000:8000/api/courses/byTeacher',
+=======
+// //         'http://192.168.1.5:8000/api/courses/byTeacher',
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 // //         data: {"teacher_name": teacherName.trim()},
 // //       );
 // //       if (response.data['status'] == "success") {
@@ -237,7 +257,11 @@
 // //
 // //     try {
 // //       final response = await _dio.post(
+<<<<<<< HEAD
 // //         'http://192.168.1.5:8000:8000/api/courses/byName',
+=======
+// //         'http://192.168.1.5:8000/api/courses/byName',
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 // //         data: {"course_name": courseName.trim()},
 // //       );
 // //       if (response.data['status'] == "success") {
@@ -314,7 +338,11 @@
 // //     isLoading.value = true;
 // //     noResults.value = false;
 // //     try {
+<<<<<<< HEAD
 // //       final response = await _dio.get('http://192.168.1.5:8000:8000/api/categories');
+=======
+// //       final response = await _dio.get('http://192.168.1.5:8000/api/categories');
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 // //       final data = response.data['data'] as List<dynamic>;
 // //       categories.value = data.map((e) => Category.fromJson(e)).toList();
 // //       noResults.value = categories.isEmpty;
@@ -340,13 +368,21 @@
 // //     late dio.Response res;
 // //       if (searchType.value == 'teacher') {
 // //         res = await _dio.post(
+<<<<<<< HEAD
 // //           'http://192.168.1.5:8000:8000/api/courses/byTeacher',
+=======
+// //           'http://192.168.1.5:8000/api/courses/byTeacher',
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 // //           data: {'teacher_name': value},
 // //           options: Options(headers: {'Accept': 'application/json'}),
 // //         );
 // //       } else {
 // //         res = await _dio.post(
+<<<<<<< HEAD
 // //           'http://192.168.1.5:8000:8000/api/courses/byName',
+=======
+// //           'http://192.168.1.5:8000/api/courses/byName',
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 // //           data: {'course_name': value},
 // //           options: Options(headers: {'Accept': 'application/json'}),
 // //         );
@@ -417,7 +453,11 @@
 //     isLoading.value = true;
 //     coursesBySearch.clear();
 //     try {
+<<<<<<< HEAD
 //       final response = await _dio.get('http://192.168.1.5:8000:8000/api/categories');
+=======
+//       final response = await _dio.get('http://192.168.1.5:8000/api/categories');
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //       final data = response.data['data'] as List<dynamic>;
 //       categories.value = data.map((e) => Category.fromJson(e)).toList();
 //       noResults.value = categories.isEmpty;
@@ -444,7 +484,11 @@
 //     try {
 //       // ابحث أولاً باسم الأستاذ
 //       dio.Response resTeacher = await _dio.post(
+<<<<<<< HEAD
 //         'http://192.168.1.5:8000:8000/api/courses/byTeacher',
+=======
+//         'http://192.168.1.5:8000/api/courses/byTeacher',
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //         data: {'teacher_name': value},
 //         options: dio.Options(headers: {'Accept': 'application/json'}),
 //       );
@@ -456,7 +500,11 @@
 //       // إذا لم تظهر نتائج باسم الأستاذ، جرّب باسم الكورس
 //       if (results.isEmpty) {
 //         dio.Response resCourse = await _dio.post(
+<<<<<<< HEAD
 //           'http://192.168.1.5:8000:8000/api/courses/byName',
+=======
+//           'http://192.168.1.5:8000/api/courses/byName',
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //           data: {'course_name': value},
 //           options: dio.Options(headers: {'Accept': 'application/json'}),
 //         );
@@ -498,6 +546,406 @@
 // }
 //
 //
+<<<<<<< HEAD
+=======
+
+// lib/Controller/dashboard_controller.dart
+
+// import 'package:get/get.dart';
+// import 'package:dio/dio.dart' as dio;
+// import 'package:project_2/Model/category_model.dart';
+// import 'package:project_2/View/Login_Student.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
+// import '../Model/course-model.dart';
+//
+// class DashboardController extends GetxController {
+//   final dio.Dio _dio = dio.Dio();
+//
+//   var isLoading = false.obs;
+//   var categories = <Category>[].obs;
+//   var coursesBySearch = <Course>[].obs;
+//   var noResults = false.obs;
+//
+//   @override
+//   void onInit() {
+//     super.onInit();
+//     fetchCategories();
+//   }
+//
+//   Future<void> fetchCategories() async {
+//     isLoading.value = true;
+//     coursesBySearch.clear();
+//     try {
+//       final response = await _dio.get('http://192.168.1.5:8000/api/categories');
+//       final data = response.data['data'] as List<dynamic>;
+//       categories.value = data.map((e) => Category.fromJson(e)).toList();
+//       noResults.value = categories.isEmpty;
+//     } catch (e) {
+//       Get.snackbar('خطأ', 'حدث خطأ أثناء تحميل الفئات: $e');
+//       noResults.value = true;
+//     } finally {
+//       isLoading.value = false;
+//     }
+//   }
+//
+//   /// البحث باسم أستاذ أو كورس أو فئة
+//   Future<void> searchCourses(String value) async {
+//     value = value.trim();
+//     if (value.isEmpty) {
+//       coursesBySearch.clear();
+//       noResults.value = false;
+//       fetchCategories();
+//       return;
+//     }
+//     isLoading.value = true;
+//     coursesBySearch.clear();
+//     noResults.value = false;
+//
+//     try {
+//       // 1- بحث باسم الأستاذ
+//       dio.Response resTeacher = await _dio.post(
+//         'http://192.168.1.5:8000/api/courses/byTeacher',
+//         data: {'teacher_name': value},
+//         options: dio.Options(headers: {'Accept': 'application/json'}),
+//       );
+//       List<Course> results = [];
+//       if (resTeacher.data['status'] == 'success' && resTeacher.data['data'] is List) {
+//         results = (resTeacher.data['data'] as List)
+//             .map((e) => Course.fromJson(e)).toList();
+//       }
+//
+//       // 2- إذا لم تظهر نتائج باسم الأستاذ، جرّب باسم الكورس
+//       if (results.isEmpty) {
+//         dio.Response resCourse = await _dio.post(
+//           'http://192.168.1.5:8000/api/courses/byName',
+//           data: {'course_name': value},
+//           options: dio.Options(headers: {'Accept': 'application/json'}),
+//         );
+//         if (resCourse.data['status'] == 'success' && resCourse.data['data'] is List) {
+//           results = (resCourse.data['data'] as List)
+//               .map((e) => Course.fromJson(e)).toList();
+//         }
+//       }
+//
+//       // 3- إذا لم تظهر نتائج باسم الكورس، جرّب باسم الفئة
+//       if (results.isEmpty) {
+//         dio.Response resCategory = await _dio.post(
+//           'http://192.168.1.5:8000/api/courses/byCategory',
+//           data: {'category_name': value},
+//           options: dio.Options(headers: {'Accept': 'application/json'}),
+//         );
+//         if (resCategory.data['status'] == 'success' && resCategory.data['data'] is List) {
+//           results = (resCategory.data['data'] as List)
+//               .map((e) => Course.fromJson(e)).toList();
+//         }
+//       }
+//
+//       coursesBySearch.value = results;
+//       noResults.value = results.isEmpty;
+//     } catch (e) {
+//       Get.snackbar('خطأ', 'حدث خطأ أثناء البحث: $e');
+//       noResults.value = true;
+//     } finally {
+//       isLoading.value = false;
+//     }
+//   }
+//
+//   void clearCourseSearch() {
+//     coursesBySearch.clear();
+//     noResults.value = false;
+//     fetchCategories();
+//   }
+//
+//   Future<void> logout() async {
+//     isLoading.value = true;
+//     final prefs = await SharedPreferences.getInstance();
+//     try {
+//       await prefs.remove('token');
+//       await prefs.remove('token_type');
+//       await prefs.remove('refresh_token');
+//       Get.offAll(() => Login());
+//     } catch (e) {
+//       Get.snackbar('خطأ', 'حدث خطأ أثناء تسجيل الخروج: $e');
+//     } finally {
+//       isLoading.value = false;
+//     }
+//   }
+// }
+
+// lib/Controller/dashboard_controller.dart
+
+
+// lib/Controller/dashboard_controller.dart
+// import 'package:get/get.dart';
+// import 'package:dio/dio.dart' as dio;
+// import 'package:project_2/Model/category_model.dart';
+// import 'package:project_2/View/Login_Student.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
+// import '../Model/course-model.dart';
+
+
+// class DashboardController extends GetxController {
+//   final dio.Dio _dio = dio.Dio();
+
+//   var isLoading = false.obs;
+//   var categories = <Category>[].obs;
+//   var coursesBySearch = <Course>[].obs;
+//   var coursesByCategory = <Course>[].obs; // الجديد
+//   var noResults = false.obs;
+
+//   @override
+//   void onInit() {
+//     super.onInit();
+//     fetchCategories();
+//   }
+
+//   Future<void> fetchCategories() async {
+//     isLoading.value = true;
+//     coursesBySearch.clear();
+//     try {
+//       final response = await _dio.get('http://192.168.1.5:8000/api/categories');
+//       final data = response.data['data'] as List<dynamic>;
+//       categories.value = data.map((e) => Category.fromJson(e)).toList();
+//       noResults.value = categories.isEmpty;
+//     } catch (e) {
+//       Get.snackbar('خطأ', 'حدث خطأ أثناء تحميل الفئات: $e');
+//       noResults.value = true;
+//     } finally {
+//       isLoading.value = false;
+//     }
+//   }
+
+//   // الدالة الجديدة: جلب كورسات حسب التصنيف
+//   Future<void> fetchCoursesByCategoryId(int categoryId) async {
+//     isLoading.value = true;
+//     coursesByCategory.clear();
+//     noResults.value = false;
+//     try {
+//       final response = await _dio.get(
+//           'http://192.168.1.5:8000/api/courses/byCategory/$categoryId',
+//           options: dio.Options(headers: {'Accept': 'application/json'}));
+//       if (response.data['status'] == 'success') {
+//         final data = response.data['data'] as List<dynamic>;
+//         coursesByCategory.value = data.map((e) => Course.fromJson(e)).toList();
+//         noResults.value = coursesByCategory.isEmpty;
+//       } else {
+//         coursesByCategory.clear();
+//         noResults.value = true;
+//       }
+//     } catch (e) {
+//       Get.snackbar('خطأ', 'حدث خطأ أثناء تحميل الكورسات: $e');
+//       noResults.value = true;
+//     } finally {
+//       isLoading.value = false;
+//     }
+//   }
+
+//   // باقي دوال البحث لم تتغير...
+
+//   Future<void> searchCourses(String value) async {
+//     value = value.trim();
+//     if (value.isEmpty) {
+//       coursesBySearch.clear();
+//       noResults.value = false;
+//       fetchCategories();
+//       return;
+//     }
+//     isLoading.value = true;
+//     coursesBySearch.clear();
+//     noResults.value = false;
+
+//     try {
+//       dio.Response resTeacher = await _dio.post(
+//         'http://192.168.1.5:8000/api/courses/byTeacher',
+//         data: {'teacher_name': value},
+//         options: dio.Options(headers: {'Accept': 'application/json'}),
+//       );
+//       List<Course> results = [];
+//       if (resTeacher.data['status'] == 'success' && resTeacher.data['data'] is List) {
+//         results = (resTeacher.data['data'] as List)
+//             .map((e) => Course.fromJson(e)).toList();
+//       }
+
+//       if (results.isEmpty) {
+//         dio.Response resCourse = await _dio.post(
+//           'http://192.168.1.5:8000/api/courses/byName',
+//           data: {'course_name': value},
+//           options: dio.Options(headers: {'Accept': 'application/json'}),
+//         );
+//         if (resCourse.data['status'] == 'success' && resCourse.data['data'] is List) {
+//           results = (resCourse.data['data'] as List)
+//               .map((e) => Course.fromJson(e)).toList();
+//         }
+//       }
+
+//       if (results.isEmpty) {
+//         dio.Response resCategory = await _dio.post(
+//           'http://192.168.1.5:8000/api/courses/byCategory',
+//           data: {'category_name': value},
+//           options: dio.Options(headers: {'Accept': 'application/json'}),
+//         );
+//         if (resCategory.data['status'] == 'success' && resCategory.data['data'] is List) {
+//           results = (resCategory.data['data'] as List)
+//               .map((e) => Course.fromJson(e)).toList();
+//         }
+//       }
+
+//       coursesBySearch.value = results;
+//       noResults.value = results.isEmpty;
+//     } catch (e) {
+//       Get.snackbar('خطأ', 'حدث خطأ أثناء البحث: $e');
+//       noResults.value = true;
+//     } finally {
+//       isLoading.value = false;
+//     }
+//   }
+
+//   void clearCourseSearch() {
+//     coursesBySearch.clear();
+//     noResults.value = false;
+//     fetchCategories();
+//   }
+
+//   Future<void> logout() async {
+//     isLoading.value = true;
+//     final prefs = await SharedPreferences.getInstance();
+//     try {
+//       await prefs.remove('token');
+//       await prefs.remove('token_type');
+//       await prefs.remove('refresh_token');
+//       Get.offAll(() => Login());
+//     } catch (e) {
+//       Get.snackbar('خطأ', 'حدث خطأ أثناء تسجيل الخروج: $e');
+//     } finally {
+//       isLoading.value = false;
+//     }
+//   }
+// }
+// lib/Controller/dashboard_controller.dart
+// lib/Controller/dashboard_controller.dart
+
+//
+// import 'package:get/get.dart';
+// import 'package:dio/dio.dart' as dio;
+// import 'package:project_2/Model/category_model.dart';
+// import 'package:project_2/Model/course-model.dart';
+// import 'package:project_2/View/Login_Student.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
+//
+// class DashboardController extends GetxController {
+//   final dio.Dio _dio = dio.Dio();
+//
+//   var isLoading = false.obs;
+//   var categories = <Category>[].obs;
+//   var coursesBySearch = <Course>[].obs;
+//   var coursesByCategory = <Course>[].obs;
+//   var noResults = false.obs;
+//
+//   @override
+//   void onInit() {
+//     super.onInit();
+//     fetchCategories();
+//   }
+//
+//   Future<void> fetchCategories() async {
+//     isLoading.value = true;
+//     coursesBySearch.clear();
+//     try {
+//       final response = await _dio.get('http://192.168.1.5:8000/api/categories');
+//       final data = response.data['data'] as List<dynamic>;
+//       categories.value = data.map((e) => Category.fromJson(e)).toList();
+//       noResults.value = categories.isEmpty;
+//     } catch (e) {
+//       Future.microtask(() => Get.snackbar('خطأ', 'حدث خطأ أثناء تحميل الفئات: $e'));
+//       noResults.value = true;
+//     } finally {
+//       isLoading.value = false;
+//     }
+//   }
+//
+//   // الحل: استدعِ هذه الدالة فقط من initState في صفحة عرض الكورسات وليس من build أو Obx
+//
+//   // باقي دوال البحث لم تتغير ...
+//   Future<void> searchCourses(String value) async {
+//     value = value.trim();
+//     if (value.isEmpty) {
+//       coursesBySearch.clear();
+//       noResults.value = false;
+//       fetchCategories();
+//       return;
+//     }
+//     isLoading.value = true;
+//     coursesBySearch.clear();
+//     noResults.value = false;
+//
+//     try {
+//       dio.Response resTeacher = await _dio.post(
+//         'http://192.168.1.5:8000/api/courses/byTeacher',
+//         data: {'teacher_name': value},
+//         options: dio.Options(headers: {'Accept': 'application/json'}),
+//       );
+//       List<Course> results = [];
+//       if (resTeacher.data['status'] == 'success' && resTeacher.data['data'] is List) {
+//         results = (resTeacher.data['data'] as List)
+//             .map((e) => Course.fromJson(e)).toList();
+//       }
+//
+//       if (results.isEmpty) {
+//         dio.Response resCourse = await _dio.post(
+//           'http://192.168.1.5:8000/api/courses/byName',
+//           data: {'course_name': value},
+//           options: dio.Options(headers: {'Accept': 'application/json'}),
+//         );
+//         if (resCourse.data['status'] == 'success' && resCourse.data['data'] is List) {
+//           results = (resCourse.data['data'] as List)
+//               .map((e) => Course.fromJson(e)).toList();
+//         }
+//       }
+//
+//       if (results.isEmpty) {
+//         dio.Response resCategory = await _dio.post(
+//           'http://192.168.1.5:8000/api/courses/byCategory',
+//           data: {'category_name': value},
+//           options: dio.Options(headers: {'Accept': 'application/json'}),
+//         );
+//         if (resCategory.data['status'] == 'success' && resCategory.data['data'] is List) {
+//           results = (resCategory.data['data'] as List)
+//               .map((e) => Course.fromJson(e)).toList();
+//         }
+//       }
+//
+//       coursesBySearch.value = results;
+//       noResults.value = results.isEmpty;
+//     } catch (e) {
+//       Future.microtask(() => Get.snackbar('خطأ', 'حدث خطأ أثناء البحث: $e'));
+//       noResults.value = true;
+//     } finally {
+//       isLoading.value = false;
+//     }
+//   }
+//
+//   void clearCourseSearch() {
+//     coursesBySearch.clear();
+//     noResults.value = false;
+//     fetchCategories();
+//   }
+//
+//   Future<void> logout() async {
+//     isLoading.value = true;
+//     final prefs = await SharedPreferences.getInstance();
+//     try {
+//       await prefs.remove('token');
+//       await prefs.remove('token_type');
+//       await prefs.remove('refresh_token');
+//       Get.offAll(() => Login());
+//     } catch (e) {
+//       Future.microtask(() => Get.snackbar('خطأ', 'حدث خطأ أثناء تسجيل الخروج: $e'));
+//     } finally {
+//       isLoading.value = false;
+//     }
+//   }
+// }
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 
 // lib/Controller/dashboard_controller.dart
 
@@ -5017,7 +5465,16 @@ import 'dart:convert';
 import 'dart:ui';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
+<<<<<<< HEAD
 import 'package:shared_preferences/shared_preferences.dart';
+=======
+import 'package:project_2/Model/category_model.dart';
+
+import 'package:project_2/View/Login_Student.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../Model/course-model.dart';
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 
 import 'package:project_2/Model/category_model.dart';
 import 'package:project_2/Model/course-model.dart';
@@ -5078,6 +5535,7 @@ class TeacherInfo {
 /// - إدارة جلسة الامتحان (بدء/استعادة/مؤقّت/إرسال إجابات)
 /// - التخزين المحلي لبعض بيانات الامتحان لمتابعة الامتحان بعد الإغلاق
 class DashboardController extends GetxController {
+<<<<<<< HEAD
   // كائن Dio لإجراء طلبات HTTP
   final dio.Dio _dio = dio.Dio();
 
@@ -5127,6 +5585,15 @@ class DashboardController extends GetxController {
 
   // ===== كاش خفيف لتحديد الـ courseId من الاسم/الفئة =====
   final Map<String, int> _courseIdCache = {};
+=======
+  final dio.Dio _dio = dio.Dio();
+
+  var isLoading = false.obs;
+  var categories = <Category>[].obs;
+  var coursesBySearch = <Course>[].obs;
+  var coursesByCategory = <Course>[].obs;
+  var noResults = false.obs;
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 
   @override
   void onInit() {
@@ -5135,6 +5602,7 @@ class DashboardController extends GetxController {
     fetchCategories();
   }
 
+<<<<<<< HEAD
   // =========================
   //  Teachers (/api/teachers)
   // =========================
@@ -5177,11 +5645,25 @@ class DashboardController extends GetxController {
       }
     } catch (e) {
       teachersError.value = 'تعذّر جلب المدرّسين: $e';
+=======
+  Future<void> fetchCategories() async {
+    isLoading.value = true;
+    coursesBySearch.clear();
+    try {
+      final response = await _dio.get('http://192.168.1.5:8000/api/categories');
+      final data = response.data['data'] as List<dynamic>;
+      categories.value = data.map((e) => Category.fromJson(e)).toList();
+      noResults.value = categories.isEmpty;
+    } catch (e) {
+      Future.microtask(() => Get.snackbar('خطأ', 'حدث خطأ أثناء تحميل الفئات: $e'));
+      noResults.value = true;
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
     } finally {
       teachersLoading.value = false;
     }
   }
 
+<<<<<<< HEAD
   // =========================
   //  Categories & Courses
   // =========================
@@ -5198,10 +5680,91 @@ class DashboardController extends GetxController {
     } catch (e) {
       Future.microtask(
           () => Get.snackbar('خطأ', 'حدث خطأ أثناء تحميل الفئات: $e'));
+=======
+  // جلب الكورسات حسب التصنيف بالآي دي:
+  Future<void> fetchCoursesByCategoryId(int categoryId) async {
+    isLoading.value = true;
+    coursesByCategory.clear();
+    noResults.value = false;
+    try {
+      final response = await _dio.get('http://192.168.1.5:8000/api/courses/byCategory/$categoryId');
+      if (response.data['status'] == 'success' && response.data['data'] is List) {
+        coursesByCategory.value = (response.data['data'] as List).map((e) => Course.fromJson(e)).toList();
+      } else {
+        coursesByCategory.clear();
+        noResults.value = true;
+      }
+    } catch (e) {
+      Future.microtask(() => Get.snackbar('خطأ', 'تعذر جلب الكورسات: $e'));
+      coursesByCategory.clear();
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
       noResults.value = true;
     } finally {
       isLoading.value = false;
     }
+  }
+  Future<void> searchCourses(String value) async {
+    value = value.trim();
+    if (value.isEmpty) {
+      coursesBySearch.clear();
+      noResults.value = false;
+      fetchCategories();
+      return;
+    }
+    isLoading.value = true;
+    coursesBySearch.clear();
+    noResults.value = false;
+
+    try {
+      dio.Response resTeacher = await _dio.post(
+        'http://192.168.1.5:8000/api/courses/byTeacher',
+        data: {'teacher_name': value},
+        options: dio.Options(headers: {'Accept': 'application/json'}),
+      );
+      List<Course> results = [];
+      if (resTeacher.data['status'] == 'success' && resTeacher.data['data'] is List) {
+        results = (resTeacher.data['data'] as List)
+            .map((e) => Course.fromJson(e)).toList();
+      }
+
+      if (results.isEmpty) {
+        dio.Response resCourse = await _dio.post(
+          'http://192.168.1.5:8000/api/courses/byName',
+          data: {'course_name': value},
+          options: dio.Options(headers: {'Accept': 'application/json'}),
+        );
+        if (resCourse.data['status'] == 'success' && resCourse.data['data'] is List) {
+          results = (resCourse.data['data'] as List)
+              .map((e) => Course.fromJson(e)).toList();
+        }
+      }
+
+      if (results.isEmpty) {
+        dio.Response resCategory = await _dio.post(
+          'http://192.168.1.5:8000/api/courses/byCategory',
+          data: {'category_name': value},
+          options: dio.Options(headers: {'Accept': 'application/json'}),
+        );
+        if (resCategory.data['status'] == 'success' && resCategory.data['data'] is List) {
+          results = (resCategory.data['data'] as List)
+              .map((e) => Course.fromJson(e)).toList();
+        }
+      }
+
+      coursesBySearch.value = results;
+      noResults.value = results.isEmpty;
+    } catch (e) {
+      Future.microtask(() => Get.snackbar('خطأ', 'حدث خطأ أثناء البحث: $e'));
+      noResults.value = true;
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  void clearCourseSearch() {
+    coursesBySearch.clear();
+    noResults.value = false;
+    fetchCategories();
   }
 
   /// جلب الدورات بحسب معرّف الفئة (يستدعى من الواجهة)
@@ -5303,13 +5866,18 @@ class DashboardController extends GetxController {
       await prefs.remove('refresh_token');
       Get.offAll(() => Login());
     } catch (e) {
+<<<<<<< HEAD
       Future.microtask(
           () => Get.snackbar('خطأ', 'حدث خطأ أثناء تسجيل الخروج: $e'));
+=======
+      Future.microtask(() => Get.snackbar('خطأ', 'حدث خطأ أثناء تسجيل الخروج: $e'));
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
     } finally {
       isLoading.value = false;
     }
   }
 
+<<<<<<< HEAD
   // =========================
   //          Auth
   // =========================
@@ -5868,4 +6436,9 @@ class DashboardController extends GetxController {
 
     answerViewsByQid.refresh();
   }
+=======
+
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 }
+
+

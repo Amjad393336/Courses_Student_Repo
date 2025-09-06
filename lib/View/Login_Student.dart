@@ -393,6 +393,7 @@ class Login extends StatelessWidget {
 
             // حقل إدخال كلمة المرور
             TextField(
+<<<<<<< HEAD
               decoration: const InputDecoration(
                 labelText: 'Password',
                 border: OutlineInputBorder(),
@@ -401,6 +402,13 @@ class Login extends StatelessWidget {
               obscureText:
                   false, // إذا جعلناها true نخفي النص (لإظهار **** بدل كلمة المرور)
               // تحديث قيمة ctrl.password كل ما يكتب المستخدم
+=======
+
+              decoration: const InputDecoration(
+
+                  labelText: 'Password', border: OutlineInputBorder(), prefixIcon: Icon(Icons.lock)),
+              obscureText: false,
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
               onChanged: (v) => ctrl.password.value = v,
             ),
             const SizedBox(height: 25),

@@ -343,7 +343,11 @@ class SignUpScreen extends StatelessWidget {
                   // حقل "Password"
                   TextFormField(
                     onChanged: (v) => ctrl.password.value = v,
+<<<<<<< HEAD
                     obscureText: false, // هنا ممكن تغيرها لـ true لو بدك تخفي الباسورد
+=======
+                    obscureText: false,
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
                     decoration: const InputDecoration(
                       labelText: 'Password',
                       border: OutlineInputBorder(),

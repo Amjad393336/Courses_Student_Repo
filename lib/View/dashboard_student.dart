@@ -1,6 +1,7 @@
 // lib/View/student_dashboard.dart
 
 // import 'package:flutter/material.dart';
+<<<<<<< HEAD
 // import 'package:get/get.dart';
 // import 'package:project_2/Controller/dashboard_controller.dart';
 // import 'package:project_2/View/wallet_view.dart';
@@ -273,16 +274,23 @@
 // import '../Model/category_model.dart';
 // import 'Courses_list.dart'; // إضافة
 
+=======
+// import 'package:get/get.dart';
+// import 'package:project_2/Controller/dashboard_controller.dart';
+// import 'package:project_2/View/wallet_view.dart';
+//
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 // class Student_Dashboard extends StatefulWidget {
 //   const Student_Dashboard({Key? key}) : super(key: key);
-
+//
 //   @override
 //   State<Student_Dashboard> createState() => _StudentDashboardState();
 // }
-
+//
 // class _StudentDashboardState extends State<Student_Dashboard> {
 //   final DashboardController controller = Get.put(DashboardController());
 //   final TextEditingController _searchController = TextEditingController();
+<<<<<<< HEAD
 
 //   final Map<String, List<String>> _subCategories = {
 //     'طبي': ['تشخيص', 'علاج', 'صيدلة'],
@@ -566,6 +574,8 @@
 // class _StudentDashboardState extends State<Student_Dashboard> {
 //   final DashboardController controller = Get.put(DashboardController());
 //   final TextEditingController _searchController = TextEditingController();
+=======
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //
 //   final Map<String, List<String>> _subCategories = {
 //     'طبي': ['تشخيص', 'علاج', 'صيدلة'],
@@ -573,6 +583,7 @@
 //     'كيمياء': ['عضوية', 'غير عضوية', 'تحليلية'],
 //   };
 //
+<<<<<<< HEAD
 //   @override
 //   void dispose() {
 //     _searchController.dispose();
@@ -1143,12 +1154,18 @@
 //     }
 //   }
 
+=======
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //   @override
 //   void dispose() {
 //     _searchController.dispose();
 //     super.dispose();
 //   }
+<<<<<<< HEAD
 
+=======
+//
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //   Widget buildStars(int count) {
 //     return Row(
 //       mainAxisAlignment: MainAxisAlignment.center,
@@ -1161,12 +1178,13 @@
 //       }),
 //     );
 //   }
-
+//
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
 //       backgroundColor: Colors.white,
 //       drawer: Drawer(
+<<<<<<< HEAD
 //         child: SafeArea(
 //           child: GetX<DashboardController>(
 //             builder: (ctrl) {
@@ -1231,6 +1249,68 @@
 //             },
 //           ),
 //         ),
+=======
+//         child: Obx(() {
+//           final cats = controller.categories;
+//           return Column(
+//             children: [
+//               const DrawerHeader(
+//                 decoration: BoxDecoration(color: Colors.lightBlue),
+//                 child: Row(
+//                   children: [
+//                     Icon(Icons.person, size: 40, color: Colors.black),
+//                     SizedBox(width: 10),
+//                     Text(
+//                       'Welcome Amjad',
+//                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//               Expanded(
+//                 child: ListView.builder(
+//                   itemCount: cats.length,
+//                   itemBuilder: (ctx, idx) {
+//                     final cat = cats[idx];
+//                     final subList = _subCategories[cat.name] ?? [];
+//                     return Theme(
+//                       data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+//                       child: ExpansionTile(
+//                         title: Text(
+//                           cat.name,
+//                           style: const TextStyle(fontWeight: FontWeight.w600),
+//                         ),
+//                         trailing: const Icon(Icons.keyboard_arrow_down),
+//                         children: subList.isNotEmpty
+//                             ? subList
+//                             .map((sub) => ListTile(
+//                           title: Text(sub),
+//                           leading: const Icon(Icons.arrow_right),
+//                           onTap: () {},
+//                         ))
+//                             .toList()
+//                             : [
+//                           const ListTile(
+//                             title: Text('لا توجد فئات فرعية'),
+//                             leading: Icon(Icons.info_outline),
+//                           )
+//                         ],
+//                       ),
+//                     );
+//                   },
+//                 ),
+//               ),
+//               const Divider(),
+//               ListTile(
+//                 leading: const Icon(Icons.logout, color: Colors.black),
+//                 title: const Text('Logout'),
+//                 onTap: controller.logout,
+//               ),
+//               const SizedBox(height: 12),
+//             ],
+//           );
+//         }),
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //       ),
 //       appBar: AppBar(
 //         backgroundColor: Colors.blue.shade300,
@@ -1295,6 +1375,10 @@
 //             child: Text('Not found', style: TextStyle(fontSize: 18, color: Colors.grey)),
 //           );
 //         } else if (controller.coursesBySearch.isNotEmpty) {
+<<<<<<< HEAD
+=======
+//           // نتائج البحث
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //           return ListView.builder(
 //             padding: const EdgeInsets.all(16),
 //             itemCount: controller.coursesBySearch.length,
@@ -1314,6 +1398,7 @@
 //             },
 //           );
 //         } else {
+//           // العرض الافتراضي للفئات
 //           return Padding(
 //             padding: const EdgeInsets.all(12.0),
 //             child: Column(
@@ -1345,6 +1430,7 @@
 //                       final cat = controller.categories[idx];
 //                       return GestureDetector(
 //                         onTap: () {
+<<<<<<< HEAD
 //                           final categoryId = getCategoryIdByName(cat.name);
 //                           if (categoryId != null) {
 //                             Get.to(() => CoursesByCategoryView(
@@ -1352,6 +1438,9 @@
 //                               categoryId: categoryId,
 //                             ));
 //                           }
+=======
+//
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //                         },
 //                         child: Card(
 //                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -1393,6 +1482,7 @@
 //     );
 //   }
 // }
+<<<<<<< HEAD
 
 // import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
@@ -1401,6 +1491,18 @@
 // import 'package:project_2/View/Courses_list.dart';
 // import 'package:project_2/View/wallet_view.dart';
 
+=======
+// lib/View/student_dashboard.dart
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+// import 'package:project_2/Controller/dashboard_controller.dart';
+// import 'package:project_2/View/wallet_view.dart';
+
+
+// import '../Model/category_model.dart';
+// import 'Courses_list.dart'; // إضافة
+
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 // class Student_Dashboard extends StatefulWidget {
 //   const Student_Dashboard({Key? key}) : super(key: key);
 
@@ -1418,6 +1520,7 @@
 //     'كيمياء': ['عضوية', 'غير عضوية', 'تحليلية'],
 //   };
 
+<<<<<<< HEAD
 //   int? getCategoryIdByName(String name) {
 //     switch (name) {
 //       case 'طبي':
@@ -1431,6 +1534,8 @@
 //     }
 //   }
 
+=======
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //   @override
 //   void dispose() {
 //     _searchController.dispose();
@@ -1450,11 +1555,33 @@
 //     );
 //   }
 
+<<<<<<< HEAD
+=======
+//   void _onCategoryTap(Category cat) {
+//     int? catId;
+//     if (cat.name == 'طبي') {
+//       catId = 3;
+//     } else if (cat.name == 'رياضيات') {
+//       catId = 4;
+//     } else if (cat.name == 'كيمياء') {
+//       catId = 5;
+//     }
+
+//     if (catId != null) {
+//       Get.to(() => CoursesByCategoryView(categoryName: cat.name, categoryId: catId!)); // استخدام catId!
+//     } else {
+//       Get.snackbar('تنبيه', 'لا يوجد كورسات لهذا التصنيف حالياً');
+//     }
+//   }
+
+
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
 //       backgroundColor: Colors.white,
 //       drawer: Drawer(
+<<<<<<< HEAD
 //         child: SafeArea(
 //           child: GetX<DashboardController>(
 //             builder: (ctrl) {
@@ -1519,6 +1646,68 @@
 //             },
 //           ),
 //         ),
+=======
+//         child: Obx(() {
+//           final cats = controller.categories;
+//           return Column(
+//             children: [
+//               const DrawerHeader(
+//                 decoration: BoxDecoration(color: Colors.lightBlue),
+//                 child: Row(
+//                   children: [
+//                     Icon(Icons.person, size: 40, color: Colors.black),
+//                     SizedBox(width: 10),
+//                     Text(
+//                       'Welcome Amjad',
+//                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//               Expanded(
+//                 child: ListView.builder(
+//                   itemCount: cats.length,
+//                   itemBuilder: (ctx, idx) {
+//                     final cat = cats[idx];
+//                     final subList = _subCategories[cat.name] ?? [];
+//                     return Theme(
+//                       data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+//                       child: ExpansionTile(
+//                         title: Text(
+//                           cat.name,
+//                           style: const TextStyle(fontWeight: FontWeight.w600),
+//                         ),
+//                         trailing: const Icon(Icons.keyboard_arrow_down),
+//                         children: subList.isNotEmpty
+//                             ? subList
+//                             .map((sub) => ListTile(
+//                           title: Text(sub),
+//                           leading: const Icon(Icons.arrow_right),
+//                           onTap: () {},
+//                         ))
+//                             .toList()
+//                             : [
+//                           const ListTile(
+//                             title: Text('لا توجد فئات فرعية'),
+//                             leading: Icon(Icons.info_outline),
+//                           )
+//                         ],
+//                       ),
+//                     );
+//                   },
+//                 ),
+//               ),
+//               const Divider(),
+//               ListTile(
+//                 leading: const Icon(Icons.logout, color: Colors.black),
+//                 title: const Text('Logout'),
+//                 onTap: controller.logout,
+//               ),
+//               const SizedBox(height: 12),
+//             ],
+//           );
+//         }),
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //       ),
 //       appBar: AppBar(
 //         backgroundColor: Colors.blue.shade300,
@@ -1542,12 +1731,21 @@
 //               prefixIcon: const Icon(Icons.search, color: Colors.grey),
 //               suffixIcon: _searchController.text.isNotEmpty
 //                   ? IconButton(
+<<<<<<< HEAD
 //                       icon: const Icon(Icons.clear, color: Colors.grey),
 //                       onPressed: () {
 //                         _searchController.clear();
 //                         controller.clearCourseSearch();
 //                       },
 //                     )
+=======
+//                 icon: const Icon(Icons.clear, color: Colors.grey),
+//                 onPressed: () {
+//                   _searchController.clear();
+//                   controller.clearCourseSearch();
+//                 },
+//               )
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //                   : null,
 //               filled: true,
 //               fillColor: Colors.white,
@@ -1583,6 +1781,10 @@
 //             child: Text('Not found', style: TextStyle(fontSize: 18, color: Colors.grey)),
 //           );
 //         } else if (controller.coursesBySearch.isNotEmpty) {
+<<<<<<< HEAD
+=======
+//           // نتائج البحث
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //           return ListView.builder(
 //             padding: const EdgeInsets.all(16),
 //             itemCount: controller.coursesBySearch.length,
@@ -1602,6 +1804,10 @@
 //             },
 //           );
 //         } else {
+<<<<<<< HEAD
+=======
+//           // العرض الافتراضي للفئات
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //           return Padding(
 //             padding: const EdgeInsets.all(12.0),
 //             child: Column(
@@ -1632,6 +1838,7 @@
 //                     itemBuilder: (ctx, idx) {
 //                       final cat = controller.categories[idx];
 //                       return GestureDetector(
+<<<<<<< HEAD
 //                         onTap: () {
 //                           final categoryId = getCategoryIdByName(cat.name);
 //                           if (categoryId != null) {
@@ -1641,6 +1848,9 @@
 //                                 ));
 //                           }
 //                         },
+=======
+//                         onTap: () => _onCategoryTap(cat), // <-- التعديل هنا
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //                         child: Card(
 //                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
 //                           elevation: 2,
@@ -1681,6 +1891,7 @@
 //     );
 //   }
 // }
+<<<<<<< HEAD
 
 // import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
@@ -1720,21 +1931,75 @@
 //     _searchController.addListener(() => setState(() {}));
 //   }
 
+=======
+// lib/View/student_dashboard.dart
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+// import 'package:project_2/Controller/dashboard_controller.dart';
+// import 'package:project_2/Model/category_model.dart';
+// import 'package:project_2/View/Courses_list.dart';
+// import 'package:project_2/View/wallet_view.dart';
+//
+//
+// class Student_Dashboard extends StatefulWidget {
+//   const Student_Dashboard({Key? key}) : super(key: key);
+//
+//   @override
+//   State<Student_Dashboard> createState() => _StudentDashboardState();
+// }
+//
+// class _StudentDashboardState extends State<Student_Dashboard> {
+//   final DashboardController controller = Get.put(DashboardController());
+//   final TextEditingController _searchController = TextEditingController();
+//
+//   final Map<String, List<String>> _subCategories = {
+//     'طبي': ['تشخيص', 'علاج', 'صيدلة'],
+//     'رياضيات': ['جبر', 'هندسة', 'إحصاء'],
+//     'كيمياء': ['عضوية', 'غير عضوية', 'تحليلية'],
+//   };
+//
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //   @override
 //   void dispose() {
 //     _searchController.dispose();
 //     super.dispose();
 //   }
+<<<<<<< HEAD
 
+=======
+//
+//   Widget buildStars(int count) {
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       children: List.generate(5, (i) {
+//         return Icon(
+//           i < count ? Icons.star : Icons.star_border,
+//           size: 16,
+//           color: Colors.amber,
+//         );
+//       }),
+//     );
+//   }
+//
+//
+//
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
 //       backgroundColor: Colors.white,
+<<<<<<< HEAD
 
 //       // <<< Drawer بدون GetX لأنه لا يراقب أي Rx هنا >>>
 //       drawer: Drawer(
 //         child: SafeArea(
 //           child: Column(
+=======
+//       drawer: Drawer(
+//         child: Obx(() {
+//           final cats = controller.categories;
+//           return Column(
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //             children: [
 //               const DrawerHeader(
 //                 decoration: BoxDecoration(color: Colors.lightBlue),
@@ -1749,6 +2014,42 @@
 //                   ],
 //                 ),
 //               ),
+<<<<<<< HEAD
+=======
+//               Expanded(
+//                 child: ListView.builder(
+//                   itemCount: cats.length,
+//                   itemBuilder: (ctx, idx) {
+//                     final cat = cats[idx];
+//                     final subList = _subCategories[cat.name] ?? [];
+//                     return Theme(
+//                       data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+//                       child: ExpansionTile(
+//                         title: Text(
+//                           cat.name,
+//                           style: const TextStyle(fontWeight: FontWeight.w600),
+//                         ),
+//                         trailing: const Icon(Icons.keyboard_arrow_down),
+//                         children: subList.isNotEmpty
+//                             ? subList
+//                             .map((sub) => ListTile(
+//                           title: Text(sub),
+//                           leading: const Icon(Icons.arrow_right),
+//                           onTap: () {},
+//                         ))
+//                             .toList()
+//                             : [
+//                           const ListTile(
+//                             title: Text('لا توجد فئات فرعية'),
+//                             leading: Icon(Icons.info_outline),
+//                           )
+//                         ],
+//                       ),
+//                     );
+//                   },
+//                 ),
+//               ),
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //               const Divider(),
 //               ListTile(
 //                 leading: const Icon(Icons.logout, color: Colors.black),
@@ -1757,10 +2058,16 @@
 //               ),
 //               const SizedBox(height: 12),
 //             ],
+<<<<<<< HEAD
 //           ),
 //         ),
 //       ),
 
+=======
+//           );
+//         }),
+//       ),
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //       appBar: AppBar(
 //         backgroundColor: Colors.blue.shade300,
 //         elevation: 1,
@@ -1783,12 +2090,21 @@
 //               prefixIcon: const Icon(Icons.search, color: Colors.grey),
 //               suffixIcon: _searchController.text.isNotEmpty
 //                   ? IconButton(
+<<<<<<< HEAD
 //                       icon: const Icon(Icons.clear, color: Colors.grey),
 //                       onPressed: () {
 //                         _searchController.clear();
 //                         controller.clearCourseSearch();
 //                       },
 //                     )
+=======
+//                 icon: const Icon(Icons.clear, color: Colors.grey),
+//                 onPressed: () {
+//                   _searchController.clear();
+//                   controller.clearCourseSearch();
+//                 },
+//               )
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //                   : null,
 //               filled: true,
 //               fillColor: Colors.white,
@@ -1798,9 +2114,17 @@
 //                 borderSide: BorderSide.none,
 //               ),
 //             ),
+<<<<<<< HEAD
 //             onSubmitted: controller.searchCourses,
 //             onChanged: (value) {
 //               if (value.isEmpty) controller.clearCourseSearch();
+=======
+//             onSubmitted: (value) => controller.searchCourses(value),
+//             onChanged: (value) {
+//               if (value.isEmpty) {
+//                 controller.clearCourseSearch();
+//               }
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //             },
 //           ),
 //         ),
@@ -1808,6 +2132,7 @@
 //         actions: [
 //           IconButton(
 //             icon: const Icon(Icons.account_balance_wallet_outlined, color: Colors.black),
+<<<<<<< HEAD
 //             onPressed: () => Get.to(() => const WalletView()),
 //           ),
 //         ],
@@ -1827,11 +2152,29 @@
 
 //         // نتائج البحث
 //         if (controller.coursesBySearch.isNotEmpty) {
+=======
+//             onPressed: () {
+//               Get.to(() => const WalletView());
+//             },
+//           ),
+//         ],
+//       ),
+//       body: Obx(() {
+//         if (controller.isLoading.value) {
+//           return const Center(child: LinearProgressIndicator());
+//         } else if (controller.noResults.value) {
+//           return const Center(
+//             child: Text('Not found', style: TextStyle(fontSize: 18, color: Colors.grey)),
+//           );
+//         } else if (controller.coursesBySearch.isNotEmpty) {
+//           // نتائج البحث
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //           return ListView.builder(
 //             padding: const EdgeInsets.all(16),
 //             itemCount: controller.coursesBySearch.length,
 //             itemBuilder: (ctx, i) {
 //               final course = controller.coursesBySearch[i];
+<<<<<<< HEAD
 //               return Container(
 //                 margin: const EdgeInsets.only(bottom: 12),
 //                 padding: const EdgeInsets.all(12),
@@ -1850,10 +2193,22 @@
 //                     '${course.categoryName != null ? " | Category: ${course.categoryName}" : ""}',
 //                   ),
 //                   trailing: Text('${course.price} S.P', style: const TextStyle(color: Colors.green)),
+=======
+//               return Card(
+//                 elevation: 2,
+//                 margin: const EdgeInsets.only(bottom: 12),
+//                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+//                 child: ListTile(
+//                   title: Text(course.courseName, style: const TextStyle(fontWeight: FontWeight.bold)),
+//                   subtitle: Text("Teacher: ${course.teacherName}" +
+//                       (course.categoryName != null ? " | Category: ${course.categoryName}" : "")),
+//                   trailing: Text("${course.price} S.P", style: const TextStyle(color: Colors.green)),
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //                 ),
 //               );
 //             },
 //           );
+<<<<<<< HEAD
 //         }
 
 //         // الشبكة الافتراضية للفئات
@@ -1879,12 +2234,37 @@
 //                   // هذا الـObx يراقب فقط categories
 //                   final categories = controller.categories;
 //                   return GridView.builder(
+=======
+//         } else {
+//           // العرض الافتراضي للفئات
+//           return Padding(
+//             padding: const EdgeInsets.all(12.0),
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Padding(
+//                   padding: const EdgeInsets.symmetric(vertical: 8.0),
+//                   child: Center(
+//                     child: Text(
+//                       'Recommended For You',
+//                       style: TextStyle(
+//                         fontSize: 20,
+//                         fontWeight: FontWeight.bold,
+//                         color: Colors.deepPurple.shade700,
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//                 Expanded(
+//                   child: GridView.builder(
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
 //                       crossAxisCount: 2,
 //                       crossAxisSpacing: 12,
 //                       mainAxisSpacing: 12,
 //                       childAspectRatio: 3 / 4,
 //                     ),
+<<<<<<< HEAD
 //                     itemCount: categories.length,
 //                     itemBuilder: (ctx, idx) {
 //                       final cat = categories[idx];
@@ -1904,6 +2284,18 @@
 //                             borderRadius: BorderRadius.circular(12),
 //                             boxShadow: const [BoxShadow(blurRadius: 4, spreadRadius: 0.5, offset: Offset(0, 1), color: Colors.black12)],
 //                           ),
+=======
+//                     itemCount: controller.categories.length,
+//                     itemBuilder: (ctx, idx) {
+//                       final cat = controller.categories[idx];
+//                       return GestureDetector(
+//                         onTap: () {
+//
+//                         }, // <-- التعديل هنا
+//                         child: Card(
+//                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+//                           elevation: 2,
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //                           child: Column(
 //                             children: [
 //                               Expanded(
@@ -1914,6 +2306,7 @@
 //                               ),
 //                               Padding(
 //                                 padding: const EdgeInsets.all(8.0),
+<<<<<<< HEAD
 //                                 child: Text(
 //                                   cat.name,
 //                                   textAlign: TextAlign.center,
@@ -3077,6 +3470,18 @@
 //                                   textAlign: TextAlign.center,
 //                                   style: const TextStyle(
 //                                       fontWeight: FontWeight.bold),
+=======
+//                                 child: Column(
+//                                   children: [
+//                                     Text(
+//                                       cat.name,
+//                                       textAlign: TextAlign.center,
+//                                       style: const TextStyle(fontWeight: FontWeight.bold),
+//                                     ),
+//                                     const SizedBox(height: 4),
+//                                     buildStars(cat.rating),
+//                                   ],
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //                                 ),
 //                               ),
 //                             ],
@@ -3084,18 +3489,28 @@
 //                         ),
 //                       );
 //                     },
+<<<<<<< HEAD
 //                   );
 //                 }),
 //               ),
 //             ],
 //           ),
 //         );
+=======
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           );
+//         }
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 //       }),
 //     );
 //   }
 // }
 
 
+<<<<<<< HEAD
 import 'dart:io'; // قد تحتاجه للتعامل مع نظام الملفات/المنصّة (موجود هنا كما في كودك)
 import 'package:flutter/material.dart'; // عناصر واجهة Flutter
 import 'package:get/get.dart'; // GetX لإدارة الحالة والتنقل
@@ -3104,6 +3519,589 @@ import 'package:project_2/View/Courses_list.dart'; // (موجود في كودك)
 import 'package:project_2/View/teachers.dart';
 import 'package:project_2/View/wallet_view.dart'; // شاشة المحفظة
 // ★ إضافة: شاشة الأساتذة
+=======
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+// import 'package:project_2/Controller/dashboard_controller.dart';
+// import 'package:project_2/Model/category_model.dart';
+// import 'package:project_2/View/Courses_list.dart';
+// import 'package:project_2/View/wallet_view.dart';
+// // تم إضافة الاستيراد المطلوب
+//
+// class Student_Dashboard extends StatefulWidget {
+//   const Student_Dashboard({Key? key}) : super(key: key);
+//
+//   @override
+//   State<Student_Dashboard> createState() => _StudentDashboardState();
+// }
+//
+// class _StudentDashboardState extends State<Student_Dashboard> {
+//   final DashboardController controller = Get.put(DashboardController());
+//   final TextEditingController _searchController = TextEditingController();
+//
+//   final Map<String, List<String>> _subCategories = {
+//     'طبي': ['تشخيص', 'علاج', 'صيدلة'],
+//     'رياضيات': ['جبر', 'هندسة', 'إحصاء'],
+//     'كيمياء': ['عضوية', 'غير عضوية', 'تحليلية'],
+//   };
+//
+//   // تابع لجلب categoryId بحسب الاسم
+//   int? getCategoryIdByName(String name) {
+//     switch (name) {
+//       case 'طبي':
+//         return 3;
+//       case 'رياضيات':
+//         return 4;
+//       case 'كيمياء':
+//         return 5;
+//       default:
+//         return null;
+//     }
+//   }
+//
+//   @override
+//   void dispose() {
+//     _searchController.dispose();
+//     super.dispose();
+//   }
+//
+//   Widget buildStars(int count) {
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       children: List.generate(5, (i) {
+//         return Icon(
+//           i < count ? Icons.star : Icons.star_border,
+//           size: 16,
+//           color: Colors.amber,
+//         );
+//       }),
+//     );
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: Colors.white,
+//       drawer: Drawer(
+//         child: Obx(() {
+//           final cats = controller.categories;
+//           return Column(
+//             children: [
+//               const DrawerHeader(
+//                 decoration: BoxDecoration(color: Colors.lightBlue),
+//                 child: Row(
+//                   children: [
+//                     Icon(Icons.person, size: 40, color: Colors.black),
+//                     SizedBox(width: 10),
+//                     Text(
+//                       'Welcome Amjad',
+//                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//               Expanded(
+//                 child: ListView.builder(
+//                   itemCount: cats.length,
+//                   itemBuilder: (ctx, idx) {
+//                     final cat = cats[idx];
+//                     final subList = _subCategories[cat.name] ?? [];
+//                     return Theme(
+//                       data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+//                       child: ExpansionTile(
+//                         title: Text(
+//                           cat.name,
+//                           style: const TextStyle(fontWeight: FontWeight.w600),
+//                         ),
+//                         trailing: const Icon(Icons.keyboard_arrow_down),
+//                         children: subList.isNotEmpty
+//                             ? subList
+//                             .map((sub) => ListTile(
+//                           title: Text(sub),
+//                           leading: const Icon(Icons.arrow_right),
+//                           onTap: () {},
+//                         ))
+//                             .toList()
+//                             : [
+//                           const ListTile(
+//                             title: Text('لا توجد فئات فرعية'),
+//                             leading: Icon(Icons.info_outline),
+//                           )
+//                         ],
+//                       ),
+//                     );
+//                   },
+//                 ),
+//               ),
+//               const Divider(),
+//               ListTile(
+//                 leading: const Icon(Icons.logout, color: Colors.black),
+//                 title: const Text('Logout'),
+//                 onTap: controller.logout,
+//               ),
+//               const SizedBox(height: 12),
+//             ],
+//           );
+//         }),
+//       ),
+//       appBar: AppBar(
+//         backgroundColor: Colors.blue.shade300,
+//         elevation: 1,
+//         leading: Builder(
+//           builder: (ctx) => IconButton(
+//             icon: const Icon(Icons.menu, color: Colors.black),
+//             onPressed: () => Scaffold.of(ctx).openDrawer(),
+//           ),
+//         ),
+//         title: Container(
+//           height: 40,
+//           margin: const EdgeInsets.only(right: 8),
+//           child: TextField(
+//             controller: _searchController,
+//             textDirection: TextDirection.rtl,
+//             style: const TextStyle(color: Colors.black),
+//             decoration: InputDecoration(
+//               hintText: 'Search For Any Courses',
+//               hintStyle: const TextStyle(color: Colors.grey),
+//               prefixIcon: const Icon(Icons.search, color: Colors.grey),
+//               suffixIcon: _searchController.text.isNotEmpty
+//                   ? IconButton(
+//                 icon: const Icon(Icons.clear, color: Colors.grey),
+//                 onPressed: () {
+//                   _searchController.clear();
+//                   controller.clearCourseSearch();
+//                 },
+//               )
+//                   : null,
+//               filled: true,
+//               fillColor: Colors.white,
+//               contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+//               border: OutlineInputBorder(
+//                 borderRadius: BorderRadius.circular(20),
+//                 borderSide: BorderSide.none,
+//               ),
+//             ),
+//             onSubmitted: (value) => controller.searchCourses(value),
+//             onChanged: (value) {
+//               if (value.isEmpty) {
+//                 controller.clearCourseSearch();
+//               }
+//             },
+//           ),
+//         ),
+//         centerTitle: true,
+//         actions: [
+//           IconButton(
+//             icon: const Icon(Icons.account_balance_wallet_outlined, color: Colors.black),
+//             onPressed: () {
+//               Get.to(() => const WalletView());
+//             },
+//           ),
+//         ],
+//       ),
+//       body: Obx(() {
+//         if (controller.isLoading.value) {
+//           return const Center(child: LinearProgressIndicator());
+//         } else if (controller.noResults.value) {
+//           return const Center(
+//             child: Text('Not found', style: TextStyle(fontSize: 18, color: Colors.grey)),
+//           );
+//         } else if (controller.coursesBySearch.isNotEmpty) {
+//           // نتائج البحث
+//           return ListView.builder(
+//             padding: const EdgeInsets.all(16),
+//             itemCount: controller.coursesBySearch.length,
+//             itemBuilder: (ctx, i) {
+//               final course = controller.coursesBySearch[i];
+//               return Card(
+//                 elevation: 2,
+//                 margin: const EdgeInsets.only(bottom: 12),
+//                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+//                 child: ListTile(
+//                   title: Text(course.courseName, style: const TextStyle(fontWeight: FontWeight.bold)),
+//                   subtitle: Text("Teacher: ${course.teacherName}" +
+//                       (course.categoryName != null ? " | Category: ${course.categoryName}" : "")),
+//                   trailing: Text("${course.price} S.P", style: const TextStyle(color: Colors.green)),
+//                 ),
+//               );
+//             },
+//           );
+//         } else {
+//           // العرض الافتراضي للفئات
+//           return Padding(
+//             padding: const EdgeInsets.all(12.0),
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Padding(
+//                   padding: const EdgeInsets.symmetric(vertical: 8.0),
+//                   child: Center(
+//                     child: Text(
+//                       'Recommended For You',
+//                       style: TextStyle(
+//                         fontSize: 20,
+//                         fontWeight: FontWeight.bold,
+//                         color: Colors.deepPurple.shade700,
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//                 Expanded(
+//                   child: GridView.builder(
+//                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+//                       crossAxisCount: 2,
+//                       crossAxisSpacing: 12,
+//                       mainAxisSpacing: 12,
+//                       childAspectRatio: 3 / 4,
+//                     ),
+//                     itemCount: controller.categories.length,
+//                     itemBuilder: (ctx, idx) {
+//                       final cat = controller.categories[idx];
+//                       return GestureDetector(
+//                         onTap: () {
+//                           final categoryId = getCategoryIdByName(cat.name);
+//                           if (categoryId != null) {
+//                             Get.to(() => CoursesByCategoryView(
+//                               categoryName: cat.name,
+//                               categoryId: categoryId,
+//                             ));
+//                           }
+//                         },
+//                         child: Card(
+//                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+//                           elevation: 2,
+//                           child: Column(
+//                             children: [
+//                               Expanded(
+//                                 child: ClipRRect(
+//                                   borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+//                                   child: Image.asset(cat.assetPath, fit: BoxFit.fill),
+//                                 ),
+//                               ),
+//                               Padding(
+//                                 padding: const EdgeInsets.all(8.0),
+//                                 child: Column(
+//                                   children: [
+//                                     Text(
+//                                       cat.name,
+//                                       textAlign: TextAlign.center,
+//                                       style: const TextStyle(fontWeight: FontWeight.bold),
+//                                     ),
+//                                     const SizedBox(height: 4),
+//                                     buildStars(cat.rating),
+//                                   ],
+//                                 ),
+//                               ),
+//                             ],
+//                           ),
+//                         ),
+//                       );
+//                     },
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           );
+//         }
+//       }),
+//     );
+//   }
+// }
+
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+// import 'package:project_2/Controller/dashboard_controller.dart';
+// import 'package:project_2/Model/category_model.dart';
+// import 'package:project_2/View/Courses_list.dart';
+// import 'package:project_2/View/wallet_view.dart';
+//
+// class Student_Dashboard extends StatefulWidget {
+//   const Student_Dashboard({Key? key}) : super(key: key);
+//
+//   @override
+//   State<Student_Dashboard> createState() => _StudentDashboardState();
+// }
+//
+// class _StudentDashboardState extends State<Student_Dashboard> {
+//   final DashboardController controller = Get.put(DashboardController());
+//   final TextEditingController _searchController = TextEditingController();
+//
+//   final Map<String, List<String>> _subCategories = {
+//     'طبي': ['تشخيص', 'علاج', 'صيدلة'],
+//     'رياضيات': ['جبر', 'هندسة', 'إحصاء'],
+//     'كيمياء': ['عضوية', 'غير عضوية', 'تحليلية'],
+//   };
+//
+//   int? getCategoryIdByName(String name) {
+//     switch (name) {
+//       case 'طبي':
+//         return 3;
+//       case 'رياضيات':
+//         return 4;
+//       case 'كيمياء':
+//         return 5;
+//       default:
+//         return null;
+//     }
+//   }
+//
+//   @override
+//   void dispose() {
+//     _searchController.dispose();
+//     super.dispose();
+//   }
+//
+//   Widget buildStars(int count) {
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       children: List.generate(5, (i) {
+//         return Icon(
+//           i < count ? Icons.star : Icons.star_border,
+//           size: 16,
+//           color: Colors.amber,
+//         );
+//       }),
+//     );
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       backgroundColor: Colors.white,
+//       drawer: Drawer(
+//         child: SafeArea(
+//           child: GetX<DashboardController>(
+//             builder: (ctrl) {
+//               final cats = ctrl.categories;
+//               return Column(
+//                 children: [
+//                   const DrawerHeader(
+//                     decoration: BoxDecoration(color: Colors.lightBlue),
+//                     child: Row(
+//                       children: [
+//                         Icon(Icons.person, size: 40, color: Colors.black),
+//                         SizedBox(width: 10),
+//                         Text(
+//                           'Welcome Amjad',
+//                           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                   Expanded(
+//                     child: ListView.builder(
+//                       itemCount: cats.length,
+//                       itemBuilder: (ctx, idx) {
+//                         final cat = cats[idx];
+//                         final subList = _subCategories[cat.name] ?? [];
+//                         return Theme(
+//                           data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+//                           child: ExpansionTile(
+//                             title: Text(
+//                               cat.name,
+//                               style: const TextStyle(fontWeight: FontWeight.w600),
+//                             ),
+//                             trailing: const Icon(Icons.keyboard_arrow_down),
+//                             children: subList.isNotEmpty
+//                                 ? subList
+//                                 .map((sub) => ListTile(
+//                               title: Text(sub),
+//                               leading: const Icon(Icons.arrow_right),
+//                               onTap: () {},
+//                             ))
+//                                 .toList()
+//                                 : [
+//                               const ListTile(
+//                                 title: Text('لا توجد فئات فرعية'),
+//                                 leading: Icon(Icons.info_outline),
+//                               )
+//                             ],
+//                           ),
+//                         );
+//                       },
+//                     ),
+//                   ),
+//                   const Divider(),
+//                   ListTile(
+//                     leading: const Icon(Icons.logout, color: Colors.black),
+//                     title: const Text('Logout'),
+//                     onTap: controller.logout,
+//                   ),
+//                   const SizedBox(height: 12),
+//                 ],
+//               );
+//             },
+//           ),
+//         ),
+//       ),
+//       appBar: AppBar(
+//         backgroundColor: Colors.blue.shade300,
+//         elevation: 1,
+//         leading: Builder(
+//           builder: (ctx) => IconButton(
+//             icon: const Icon(Icons.menu, color: Colors.black),
+//             onPressed: () => Scaffold.of(ctx).openDrawer(),
+//           ),
+//         ),
+//         title: Container(
+//           height: 40,
+//           margin: const EdgeInsets.only(right: 8),
+//           child: TextField(
+//             controller: _searchController,
+//             textDirection: TextDirection.rtl,
+//             style: const TextStyle(color: Colors.black),
+//             decoration: InputDecoration(
+//               hintText: 'Search For Any Courses',
+//               hintStyle: const TextStyle(color: Colors.grey),
+//               prefixIcon: const Icon(Icons.search, color: Colors.grey),
+//               suffixIcon: _searchController.text.isNotEmpty
+//                   ? IconButton(
+//                 icon: const Icon(Icons.clear, color: Colors.grey),
+//                 onPressed: () {
+//                   _searchController.clear();
+//                   controller.clearCourseSearch();
+//                 },
+//               )
+//                   : null,
+//               filled: true,
+//               fillColor: Colors.white,
+//               contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+//               border: OutlineInputBorder(
+//                 borderRadius: BorderRadius.circular(20),
+//                 borderSide: BorderSide.none,
+//               ),
+//             ),
+//             onSubmitted: (value) => controller.searchCourses(value),
+//             onChanged: (value) {
+//               if (value.isEmpty) {
+//                 controller.clearCourseSearch();
+//               }
+//             },
+//           ),
+//         ),
+//         centerTitle: true,
+//         actions: [
+//           IconButton(
+//             icon: const Icon(Icons.account_balance_wallet_outlined, color: Colors.black),
+//             onPressed: () {
+//               Get.to(() => const WalletView());
+//             },
+//           ),
+//         ],
+//       ),
+//       body: Obx(() {
+//         if (controller.isLoading.value) {
+//           return const Center(child: LinearProgressIndicator());
+//         } else if (controller.noResults.value) {
+//           return const Center(
+//             child: Text('Not found', style: TextStyle(fontSize: 18, color: Colors.grey)),
+//           );
+//         } else if (controller.coursesBySearch.isNotEmpty) {
+//           return ListView.builder(
+//             padding: const EdgeInsets.all(16),
+//             itemCount: controller.coursesBySearch.length,
+//             itemBuilder: (ctx, i) {
+//               final course = controller.coursesBySearch[i];
+//               return Card(
+//                 elevation: 2,
+//                 margin: const EdgeInsets.only(bottom: 12),
+//                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+//                 child: ListTile(
+//                   title: Text(course.courseName, style: const TextStyle(fontWeight: FontWeight.bold)),
+//                   subtitle: Text("Teacher: ${course.teacherName}" +
+//                       (course.categoryName != null ? " | Category: ${course.categoryName}" : "")),
+//                   trailing: Text("${course.price} S.P", style: const TextStyle(color: Colors.green)),
+//                 ),
+//               );
+//             },
+//           );
+//         } else {
+//           return Padding(
+//             padding: const EdgeInsets.all(12.0),
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Padding(
+//                   padding: const EdgeInsets.symmetric(vertical: 8.0),
+//                   child: Center(
+//                     child: Text(
+//                       'Recommended For You',
+//                       style: TextStyle(
+//                         fontSize: 20,
+//                         fontWeight: FontWeight.bold,
+//                         color: Colors.deepPurple.shade700,
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//                 Expanded(
+//                   child: GridView.builder(
+//                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+//                       crossAxisCount: 2,
+//                       crossAxisSpacing: 12,
+//                       mainAxisSpacing: 12,
+//                       childAspectRatio: 3 / 4,
+//                     ),
+//                     itemCount: controller.categories.length,
+//                     itemBuilder: (ctx, idx) {
+//                       final cat = controller.categories[idx];
+//                       return GestureDetector(
+//                         onTap: () {
+//                           final categoryId = getCategoryIdByName(cat.name);
+//                           if (categoryId != null) {
+//                             Get.to(() => CoursesByCategoryView(
+//                               categoryName: cat.name,
+//                               categoryId: categoryId,
+//                             ));
+//                           }
+//                         },
+//                         child: Card(
+//                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+//                           elevation: 2,
+//                           child: Column(
+//                             children: [
+//                               Expanded(
+//                                 child: ClipRRect(
+//                                   borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+//                                   child: Image.asset(cat.assetPath, fit: BoxFit.fill),
+//                                 ),
+//                               ),
+//                               Padding(
+//                                 padding: const EdgeInsets.all(8.0),
+//                                 child: Column(
+//                                   children: [
+//                                     Text(
+//                                       cat.name,
+//                                       textAlign: TextAlign.center,
+//                                       style: const TextStyle(fontWeight: FontWeight.bold),
+//                                     ),
+//                                     const SizedBox(height: 4),
+//                                     buildStars(cat.rating),
+//                                   ],
+//                                 ),
+//                               ),
+//                             ],
+//                           ),
+//                         ),
+//                       );
+//                     },
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           );
+//         }
+//       }),
+//     );
+//   }
+// }
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:project_2/Controller/dashboard_controller.dart';
+import 'package:project_2/Model/category_model.dart';
+import 'package:project_2/View/Courses_list.dart';
+import 'package:project_2/View/wallet_view.dart';
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 
 // تعريف ويدجت Stateful بإسم Student_Dashboard (شاشة الطالب الرئيسية)
 class Student_Dashboard extends StatefulWidget {
@@ -3117,6 +4115,7 @@ class Student_Dashboard extends StatefulWidget {
 class _StudentDashboardState extends State<Student_Dashboard> {
   // إنشاء وربط DashboardController عبر GetX (لإدارة البيانات والحالة)
   final DashboardController controller = Get.put(DashboardController());
+<<<<<<< HEAD
   // متحكم لحقل البحث لقراءة/تعديل النص وبرمجته
   final TextEditingController _searchController = TextEditingController();
 
@@ -3125,6 +4124,22 @@ class _StudentDashboardState extends State<Student_Dashboard> {
     super.initState();
     // مستمع لتحديث حالة الواجهة كلما تغيّر نص البحث (مفيد لإظهار/إخفاء زر الحذف في suffixIcon)
     _searchController.addListener(() => setState(() {}));
+=======
+  final TextEditingController _searchController = TextEditingController();
+
+
+  int? getCategoryIdByName(String name) {
+    switch (name) {
+      case 'طبي':
+        return 3;
+      case 'رياضيات':
+        return 4;
+      case 'كيمياء':
+        return 5;
+      default:
+        return null;
+    }
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
   }
 
   @override
@@ -3134,10 +4149,27 @@ class _StudentDashboardState extends State<Student_Dashboard> {
     super.dispose();
   }
 
+<<<<<<< HEAD
+=======
+  Widget buildStars(int count) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(5, (i) {
+        return Icon(
+          i < count ? Icons.star : Icons.star_border,
+          size: 16,
+          color: Colors.amber,
+        );
+      }),
+    );
+  }
+
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
   @override
   Widget build(BuildContext context) {
     // هيكل الشاشة الأساسي
     return Scaffold(
+<<<<<<< HEAD
       backgroundColor: Colors.white, // لون خلفية الشاشة
 
       // قائمة جانبية Drawer (ثابتة هنا ولا تعتمد على Rx مباشرة)
@@ -3174,6 +4206,37 @@ class _StudentDashboardState extends State<Student_Dashboard> {
       ),
 
       // شريط التطبيق العلوي AppBar
+=======
+      backgroundColor: Colors.white,
+      // فقط زر تسجيل الخروج في الدروار
+      drawer: Drawer(
+        child: Column(
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(color: Colors.lightBlue),
+              child: Row(
+                children: [
+                  Icon(Icons.person, size: 40, color: Colors.black),
+                  SizedBox(width: 10),
+                  Text(
+                    'Welcome Amjad',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+            // لا يوجد تصنيفات - فقط زر تسجيل الخروج
+            //const Spacer(),
+            ListTile(
+              leading: const Icon(Icons.logout, color: Colors.black),
+              title: const Text('Logout'),
+              onTap: controller.logout,
+            ),
+            const SizedBox(height: 20),
+          ],
+        ),
+      ),
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
       appBar: AppBar(
         backgroundColor: Colors.blue.shade300, // لون الخلفية
         elevation: 1, // ظل بسيط
@@ -3184,6 +4247,7 @@ class _StudentDashboardState extends State<Student_Dashboard> {
             onPressed: () => Scaffold.of(ctx).openDrawer(), // فتح الـ Drawer
           ),
         ),
+<<<<<<< HEAD
         // مربع البحث كعنوان للـ AppBar
         title: Container(
           height: 40, // ارتفاع الحقل
@@ -3222,6 +4286,50 @@ class _StudentDashboardState extends State<Student_Dashboard> {
             onChanged: (value) {
               // عند حذف كامل النص: امسح نتائج البحث وأعد الفئات
               if (value.isEmpty) controller.clearCourseSearch();
+=======
+        title: Container(
+          height: 40,
+          margin: const EdgeInsets.only(right: 8),
+          child: TextField(
+            controller: _searchController,
+            textDirection: TextDirection.rtl,
+            style: const TextStyle(color: Colors.black),
+            decoration: InputDecoration(
+              hintText: 'Search For Any Courses',
+              hintStyle: const TextStyle(color: Colors.grey),
+              prefixIcon: const Icon(Icons.search, color: Colors.grey),
+              suffixIcon: _searchController.text.isNotEmpty
+                  ? IconButton(
+                icon: const Icon(Icons.clear, color: Colors.grey),
+                onPressed: () {
+                  _searchController.clear();
+                  controller.clearCourseSearch();
+                },
+              )
+                  : null,
+              filled: true,
+              fillColor: Colors.white,
+              contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide: BorderSide.none,
+              ),
+            ),
+            onSubmitted: (value) => controller.searchCourses(value),
+            onChanged: (value) {
+              if (value.isEmpty) {
+                controller.clearCourseSearch();
+              }
+            },
+          ),
+        ),
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.account_balance_wallet_outlined, color: Colors.black),
+            onPressed: () {
+              Get.to(() => const WalletView());
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
             },
           ),
         ),
@@ -3241,20 +4349,28 @@ class _StudentDashboardState extends State<Student_Dashboard> {
           ),
         ],
       ),
+<<<<<<< HEAD
 
       // الجسم الرئيسي للشاشة: يراقب حالات الكنترولر عبر Obx
+=======
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
       body: Obx(() {
         // حالة التحميل العامة (شريط تقدّم خطّي)
         if (controller.isLoading.value) {
           return const Center(child: LinearProgressIndicator());
+<<<<<<< HEAD
         }
 
         // لا توجد نتائج (بحث/جلب)
         if (controller.noResults.value) {
+=======
+        } else if (controller.noResults.value) {
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
           return const Center(
             child: Text('Not found',
                 style: TextStyle(fontSize: 18, color: Colors.grey)),
           );
+<<<<<<< HEAD
         }
 
         // في حال وجود نتائج بحث: عرض قائمة الكورسات المطابقة
@@ -3302,6 +4418,42 @@ class _StudentDashboardState extends State<Student_Dashboard> {
                             style: const TextStyle(fontSize: 13),
                           ),
                         ],
+=======
+        } else if (controller.coursesBySearch.isNotEmpty) {
+          return ListView.builder(
+            padding: const EdgeInsets.all(16),
+            itemCount: controller.coursesBySearch.length,
+            itemBuilder: (ctx, i) {
+              final course = controller.coursesBySearch[i];
+              return Card(
+                elevation: 2,
+                margin: const EdgeInsets.only(bottom: 12),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                child: ListTile(
+                  title: Text(course.courseName, style: const TextStyle(fontWeight: FontWeight.bold)),
+                  subtitle: Text("Teacher: ${course.teacherName}" +
+                      (course.categoryName != null ? " | Category: ${course.categoryName}" : "")),
+                  trailing: Text("${course.price} S.P", style: const TextStyle(color: Colors.green)),
+                ),
+              );
+            },
+          );
+        } else {
+          return Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Center(
+                    child: Text(
+                      'Recommended For You',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepPurple.shade700,
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
                       ),
                       if (course.categoryName != null)
                         Row(
@@ -3380,6 +4532,7 @@ class _StudentDashboardState extends State<Student_Dashboard> {
                       final cat = categories[idx]; // الفئة الحالية
                       return GestureDetector(
                         onTap: () {
+<<<<<<< HEAD
                           // ★★★ التعديل المطلوب: استخدام id القادم من الـ API مباشرة
                           final int? categoryId = cat.id; // يجب أن يكون موجودًا في الموديل
                           if (categoryId == null || categoryId <= 0) {
@@ -3407,27 +4560,58 @@ class _StudentDashboardState extends State<Student_Dashboard> {
                                   color: Colors.black12)
                             ],
                           ),
+=======
+                          final categoryId = getCategoryIdByName(cat.name);
+                          if (categoryId != null) {
+                            Get.to(() => CoursesByCategoryView(
+                              categoryName: cat.name,
+                              categoryId: categoryId,
+                            ));
+                          }
+                        },
+                        child: Card(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                          elevation: 16,
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
                           child: Column(
                             children: [
                               // صورة الفئة (لو عندك assetPath بالموديل)
                               Expanded(
                                 child: ClipRRect(
+<<<<<<< HEAD
                                   borderRadius: const BorderRadius.vertical(
                                       top: Radius.circular(12)),
                                   child: Image.asset(
                                     cat.assetPath,
                                     fit: BoxFit.fill,
                                   ),
+=======
+                                  borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                                  child: Image.asset(cat.assetPath, fit: BoxFit.fill),
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
                                 ),
                               ),
                               // اسم الفئة أسفل الصورة
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
+<<<<<<< HEAD
                                 child: Text(
                                   cat.name,
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold),
+=======
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      cat.name,
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    buildStars(cat.rating),
+                                  ],
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
                                 ),
                               ),
                             ],

@@ -28,6 +28,7 @@
 
 // lib/models/course_model.dart
 
+<<<<<<< HEAD
 // class Course {
 //   final int courseId;
 //   final String courseName;
@@ -54,6 +55,8 @@
 //   }
 // }
 
+=======
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 class Course {
   final int courseId;
   final String courseName;
@@ -72,10 +75,20 @@ class Course {
   factory Course.fromJson(Map<String, dynamic> json) {
     return Course(
       courseId: json['course_id'] ?? json['id'] ?? 0,
+<<<<<<< HEAD
       courseName: json['course_name'] ?? '',
       price: json['price']?.toString() ?? '0',
       teacherName: json['teacher_name'] ?? '',
+=======
+      courseName: json['course_name'],
+      price: json['price'].toString(),
+      teacherName: json['teacher_name'],
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
       categoryName: json['category_name'],
     );
   }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9

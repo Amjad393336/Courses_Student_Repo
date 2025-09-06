@@ -90,6 +90,7 @@
 //   }
 // }
 
+<<<<<<< HEAD
 // class Category {
 //   final String name;
 //   final String assetPath;
@@ -133,6 +134,8 @@
 //   }
 // }
 
+=======
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
 class Category {
   final String name;
   final String assetPath;
@@ -177,4 +180,7 @@ class Category {
 }
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9

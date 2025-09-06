@@ -67,8 +67,13 @@ class SignupController extends GetxController {
 
       // إرسال الطلب إلى API
       final resp = await _dio.post(
+<<<<<<< HEAD
         'http://192.168.1.5:8000/api/student/register', // رابط الـ API
         data: req.toJson(), // تحويل البيانات إلى JSON
+=======
+        'http://192.168.1.5:8000/api/student/register',
+        data: req.toJson(),
+>>>>>>> c9168ddd750ac52702f771eced74036043f3ffa9
         options: Options(
           headers: {'Accept': 'application/json'},
           validateStatus: (status) =>
