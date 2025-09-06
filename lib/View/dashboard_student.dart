@@ -2718,6 +2718,384 @@
 //   }
 // }
 
+// import 'dart:io'; // قد تحتاجه للتعامل مع نظام الملفات/المنصّة (موجود هنا كما في كودك)
+// import 'package:flutter/material.dart'; // عناصر واجهة Flutter
+// import 'package:get/get.dart'; // GetX لإدارة الحالة والتنقل
+// import 'package:project_2/Controller/dashboard_controller.dart'; // الكنترولر (إن احتجته في هذه الشاشة)
+// import 'package:project_2/View/Courses_list.dart'; // (موجود في كودك)
+// import 'package:project_2/View/teachers.dart';
+// import 'package:project_2/View/wallet_view.dart'; // شاشة المحفظة
+// // ★ إضافة: شاشة الأساتذة
+
+// // تعريف ويدجت Stateful بإسم Student_Dashboard (شاشة الطالب الرئيسية)
+// class Student_Dashboard extends StatefulWidget {
+//   const Student_Dashboard({Key? key}) : super(key: key);
+
+//   @override
+//   State<Student_Dashboard> createState() => _StudentDashboardState();
+// }
+
+// // الحالة الخاصة بشاشة Student_Dashboard
+// class _StudentDashboardState extends State<Student_Dashboard> {
+//   // إنشاء وربط DashboardController عبر GetX (لإدارة البيانات والحالة)
+//   final DashboardController controller = Get.put(DashboardController());
+//   // متحكم لحقل البحث لقراءة/تعديل النص وبرمجته
+//   final TextEditingController _searchController = TextEditingController();
+
+//   // دالة مساعدة: تحويل اسم الفئة إلى معرّف categoryId (حسب القيم المعتمدة عندك)
+//   int? getCategoryIdByName(String name) {
+//     switch (name) {
+//       case 'طبي':
+//         return 3;
+//       case 'رياضيات':
+//         return 4;
+//       case 'كيمياء':
+//         return 5;
+//       default:
+//         return null; // إن لم تُطابق أي فئة
+//     }
+//   }
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     // مستمع لتحديث حالة الواجهة كلما تغيّر نص البحث (مفيد لإظهار/إخفاء زر الحذف في suffixIcon)
+//     _searchController.addListener(() => setState(() {}));
+//   }
+
+//   @override
+//   void dispose() {
+//     // تنظيف المتحكم عند التخلص من الودجت لتفادي التسريبات
+//     _searchController.dispose();
+//     super.dispose();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     // هيكل الشاشة الأساسي
+//     return Scaffold(
+//       backgroundColor: Colors.white, // لون خلفية الشاشة
+
+//       // قائمة جانبية Drawer (ثابتة هنا ولا تعتمد على Rx مباشرة)
+//       drawer: Drawer(
+//         child: SafeArea(
+//           child: Column(
+//             children: [
+//               // رأس القائمة الجانبية (صورة/نص ترحيبي)
+//               const DrawerHeader(
+//                 decoration: BoxDecoration(color: Colors.lightBlue),
+//                 child: Row(
+//                   children: [
+//                     Icon(Icons.person, size: 40, color: Colors.black),
+//                     SizedBox(width: 10),
+//                     Text(
+//                       'Welcome Amjad',
+//                       style:
+//                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//               const Divider(), // فاصل بصري
+//               // خيار تسجيل الخروج يستدعي دالة logout من الكنترولر
+//               ListTile(
+//                 leading: const Icon(Icons.logout, color: Colors.black),
+//                 title: const Text('Logout'),
+//                 onTap: controller.logout,
+//               ),
+//               const SizedBox(height: 12),
+//             ],
+//           ),
+//         ),
+//       ),
+
+//       // شريط التطبيق العلوي AppBar
+//       appBar: AppBar(
+//         backgroundColor: Colors.blue.shade300, // لون الخلفية
+//         elevation: 1, // ظل بسيط
+//         // زر فتح القائمة الجانبية (يحتاج Builder للوصول إلى Scaffold.of)
+//         leading: Builder(
+//           builder: (ctx) => IconButton(
+//             icon: const Icon(Icons.menu, color: Colors.black),
+//             onPressed: () => Scaffold.of(ctx).openDrawer(), // فتح الـ Drawer
+//           ),
+//         ),
+//         // مربع البحث كعنوان للـ AppBar
+//         title: Container(
+//           height: 40, // ارتفاع الحقل
+//           margin: const EdgeInsets.only(right: 8), // هامش يمين بسيط
+//           child: TextField(
+//             controller: _searchController, // ربط المتحكم بالحقل
+//             textDirection: TextDirection.rtl, // اتجاه النص (يميني)
+//             style: const TextStyle(color: Colors.black), // تنسيق النص
+//             decoration: InputDecoration(
+//               hintText: 'Search For Any Courses or Categories', // نص مساعد
+//               hintStyle: const TextStyle(color: Colors.grey),
+//               prefixIcon:
+//                   const Icon(Icons.search, color: Colors.grey), // أيقونة بحث
+//               // زر مسح يظهر فقط إذا النص غير فارغ
+//               suffixIcon: _searchController.text.isNotEmpty
+//                   ? IconButton(
+//                       icon: const Icon(Icons.clear, color: Colors.grey),
+//                       onPressed: () {
+//                         _searchController.clear(); // تفريغ الحقل
+//                         controller
+//                             .clearCourseSearch(); // إعادة الحالة الأصلية للنتائج
+//                       },
+//                     )
+//                   : null,
+//               filled: true, // خلفية ملوّنة
+//               fillColor: Colors.white, // لون الخلفية
+//               contentPadding: const EdgeInsets.symmetric(
+//                   vertical: 0, horizontal: 16), // حشوة داخلية
+//               border: OutlineInputBorder(
+//                 borderRadius: BorderRadius.circular(20), // حواف دائرية
+//                 borderSide: BorderSide.none, // بدون حدود ظاهرة
+//               ),
+//             ),
+//             onSubmitted:
+//                 controller.searchCourses, // عند الضغط Enter: ابحث مباشرة
+//             onChanged: (value) {
+//               // عند حذف كامل النص: امسح نتائج البحث وأعد الفئات
+//               if (value.isEmpty) controller.clearCourseSearch();
+//             },
+//           ),
+//         ),
+//         centerTitle: true, // توسيط العنوان (مربع البحث)
+//         actions: [
+//           // ★ زر الذهاب لواجهة الأساتذة (بحث/عرض الأساتذة)
+//           IconButton(
+//             tooltip: 'Teachers',
+//             icon: const Icon(Icons.school_outlined, color: Colors.black),
+//             onPressed: () => Get.to(() => const TeachersView()),
+//           ),
+//           // زر الذهاب لمحفظة المستخدم
+//           IconButton(
+//             icon: const Icon(Icons.account_balance_wallet_outlined,
+//                 color: Colors.black),
+//             onPressed: () => Get.to(() => const WalletView()),
+//           ),
+//         ],
+//       ),
+
+//       // الجسم الرئيسي للشاشة: يراقب حالات الكنترولر عبر Obx
+//       body: Obx(() {
+//         // حالة التحميل العامة (شريط تقدّم خطّي)
+//         if (controller.isLoading.value) {
+//           return const Center(child: LinearProgressIndicator());
+//         }
+
+//         // لا توجد نتائج (بحث/جلب)
+//         if (controller.noResults.value) {
+//           return const Center(
+//             child: Text('Not found',
+//                 style: TextStyle(fontSize: 18, color: Colors.grey)),
+//           );
+//         }
+
+//         // في حال وجود نتائج بحث: عرض قائمة الكورسات المطابقة
+//         if (controller.coursesBySearch.isNotEmpty) {
+//           return ListView.builder(
+//             padding: const EdgeInsets.all(16), // حواف حول القائمة
+//             itemCount: controller.coursesBySearch.length, // عدد العناصر
+//             itemBuilder: (ctx, i) {
+//               final course =
+//                   controller.coursesBySearch[i]; // عنصر الكورس الحالي
+//               return Container(
+//                 margin: const EdgeInsets.only(bottom: 12), // مسافة أسفل كل عنصر
+//                 padding: const EdgeInsets.all(12), // حشوة داخلية
+//                 decoration: BoxDecoration(
+//                   color: Colors.white,
+//                   borderRadius: BorderRadius.circular(12), // حواف دائرية للكارد
+//                   boxShadow: const [
+//                     BoxShadow(
+//                         blurRadius: 4,
+//                         spreadRadius: 0.5,
+//                         offset: Offset(0, 1),
+//                         color: Colors.black12)
+//                   ],
+//                 ),
+//                 // child: ListTile(
+//                 //   title: Text(
+//                 //     course.courseName,                             // اسم الكورس
+//                 //     style: const TextStyle(fontWeight: FontWeight.bold),
+//                 //   ),
+//                 //   subtitle: Text(
+//                 //     // اسم المدرّس + الفئة (إن وُجدت)
+//                 //     'Teacher: ${course.teacherName}'
+//                 //     '${course.categoryName != null ? " | Category: ${course.categoryName}" : ""}',
+//                 //   ),
+//                 //   trailing: Text(                                   // السعر في يمين العنصر
+//                 //     '${course.price} S.P',
+//                 //     style: const TextStyle(color: Colors.green),
+//                 //   ),
+//                 // ),
+//                 child: ListTile(
+//                   leading: CircleAvatar(
+//                     // صورة/رمز دائري ببداية العنصر
+//                     backgroundColor: Colors.blue.shade50,
+//                     child: Icon(Icons.menu_book, color: Colors.blue.shade700),
+//                   ),
+//                   title: Text(
+//                     course.courseName, // اسم الكورس
+//                     style: const TextStyle(
+//                         fontWeight: FontWeight.bold, fontSize: 16),
+//                   ),
+//                   subtitle: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Row(
+//                         children: [
+//                           const Icon(Icons.person,
+//                               size: 16, color: Colors.grey),
+//                           const SizedBox(width: 4),
+//                           Text(
+//                             course.teacherName,
+//                             style: const TextStyle(fontSize: 13),
+//                           ),
+//                         ],
+//                       ),
+//                       if (course.categoryName != null)
+//                         Row(
+//                           children: [
+//                             const Icon(Icons.category,
+//                                 size: 16, color: Colors.grey),
+//                             const SizedBox(width: 4),
+//                             Text(
+//                               course.categoryName!,
+//                               style: const TextStyle(
+//                                   fontSize: 13, color: Colors.grey),
+//                             ),
+//                           ],
+//                         ),
+//                     ],
+//                   ),
+//                   trailing: Column(
+//                     mainAxisAlignment: MainAxisAlignment.center,
+//                     children: [
+//                       const Icon(Icons.monetization_on, color: Colors.green),
+//                       const SizedBox(height: 4),
+//                       Text(
+//                         '${course.price} S.P',
+//                         style: const TextStyle(
+//                           fontWeight: FontWeight.bold,
+//                           color: Colors.green,
+//                           fontSize: 13,
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                   contentPadding:
+//                       const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+//                   shape: RoundedRectangleBorder(
+//                     borderRadius: BorderRadius.circular(12),
+//                   ),
+//                 ),
+//               );
+//             },
+//           );
+//         }
+
+//         // في حال عدم وجود بحث: عرض شبكة الفئات (Recommended)
+//         return Padding(
+//           padding: const EdgeInsets.all(12.0), // حواف عامة
+//           child: Column(
+//             children: [
+//               // عنوان القسم
+//               Padding(
+//                 padding: const EdgeInsets.symmetric(vertical: 8.0),
+//                 child: Center(
+//                   child: Text(
+//                     'Recommended For You',
+//                     style: TextStyle(
+//                       fontSize: 20,
+//                       fontWeight: FontWeight.bold,
+//                       color: Colors.deepPurple.shade700,
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//               // شبكة الفئات (تتمدّد لملء المساحة)
+//               Expanded(
+//                 child: Obx(() {
+//                   // مراقبة قائمة الفئات فقط داخل هذا الجزء
+//                   final categories = controller.categories;
+//                   return GridView.builder(
+//                     gridDelegate:
+//                         const SliverGridDelegateWithFixedCrossAxisCount(
+//                       crossAxisCount: 2, // عمودان
+//                       crossAxisSpacing: 12, // مسافة أفقية بين العناصر
+//                       mainAxisSpacing: 12, // مسافة عمودية بين العناصر
+//                       childAspectRatio: 3 / 4, // نسبة العرض إلى الارتفاع للكارد
+//                     ),
+//                     itemCount: categories.length, // عدد الفئات
+//                     itemBuilder: (ctx, idx) {
+//                       final cat = categories[idx]; // الفئة الحالية
+//                       return GestureDetector(
+//                         // عند الضغط على الفئة: الذهاب لصفحة كورسات الفئة
+//                         onTap: () {
+//                           final categoryId = getCategoryIdByName(
+//                               cat.name); // تحويل الاسم إلى id
+//                           if (categoryId != null) {
+//                             Get.to(() => CoursesByCategoryView(
+//                                   categoryName: cat.name, // تمرير اسم الفئة
+//                                   categoryId: categoryId, // تمرير id الفئة
+//                                 ));
+//                           }
+//                         },
+//                         child: Container(
+//                           decoration: BoxDecoration(
+//                             color: Colors.white,
+//                             borderRadius:
+//                                 BorderRadius.circular(12), // حواف دائرية
+//                             boxShadow: const [
+//                               BoxShadow(
+//                                   blurRadius: 4,
+//                                   spreadRadius: 0.5,
+//                                   offset: Offset(0, 1),
+//                                   color: Colors.black12)
+//                             ],
+//                           ),
+//                           child: Column(
+//                             children: [
+//                               // صورة الفئة (مأخوذة من المسار assetPath في الموديل)
+//                               Expanded(
+//                                 child: ClipRRect(
+//                                   borderRadius: const BorderRadius.vertical(
+//                                       top: Radius.circular(12)),
+//                                   child: Image.asset(
+//                                     cat.assetPath,
+//                                     fit: BoxFit.fill, // تغطية المساحة المتاحة
+//                                   ),
+//                                 ),
+//                               ),
+//                               // اسم الفئة أسفل الصورة
+//                               Padding(
+//                                 padding: const EdgeInsets.all(8.0),
+//                                 child: Text(
+//                                   cat.name,
+//                                   textAlign: TextAlign.center,
+//                                   style: const TextStyle(
+//                                       fontWeight: FontWeight.bold),
+//                                 ),
+//                               ),
+//                             ],
+//                           ),
+//                         ),
+//                       );
+//                     },
+//                   );
+//                 }),
+//               ),
+//             ],
+//           ),
+//         );
+//       }),
+//     );
+//   }
+// }
+
+
 import 'dart:io'; // قد تحتاجه للتعامل مع نظام الملفات/المنصّة (موجود هنا كما في كودك)
 import 'package:flutter/material.dart'; // عناصر واجهة Flutter
 import 'package:get/get.dart'; // GetX لإدارة الحالة والتنقل
@@ -2741,20 +3119,6 @@ class _StudentDashboardState extends State<Student_Dashboard> {
   final DashboardController controller = Get.put(DashboardController());
   // متحكم لحقل البحث لقراءة/تعديل النص وبرمجته
   final TextEditingController _searchController = TextEditingController();
-
-  // دالة مساعدة: تحويل اسم الفئة إلى معرّف categoryId (حسب القيم المعتمدة عندك)
-  int? getCategoryIdByName(String name) {
-    switch (name) {
-      case 'طبي':
-        return 3;
-      case 'رياضيات':
-        return 4;
-      case 'كيمياء':
-        return 5;
-      default:
-        return null; // إن لم تُطابق أي فئة
-    }
-  }
 
   @override
   void initState() {
@@ -2915,29 +3279,13 @@ class _StudentDashboardState extends State<Student_Dashboard> {
                         color: Colors.black12)
                   ],
                 ),
-                // child: ListTile(
-                //   title: Text(
-                //     course.courseName,                             // اسم الكورس
-                //     style: const TextStyle(fontWeight: FontWeight.bold),
-                //   ),
-                //   subtitle: Text(
-                //     // اسم المدرّس + الفئة (إن وُجدت)
-                //     'Teacher: ${course.teacherName}'
-                //     '${course.categoryName != null ? " | Category: ${course.categoryName}" : ""}',
-                //   ),
-                //   trailing: Text(                                   // السعر في يمين العنصر
-                //     '${course.price} S.P',
-                //     style: const TextStyle(color: Colors.green),
-                //   ),
-                // ),
                 child: ListTile(
                   leading: CircleAvatar(
-                    // صورة/رمز دائري ببداية العنصر
                     backgroundColor: Colors.blue.shade50,
                     child: Icon(Icons.menu_book, color: Colors.blue.shade700),
                   ),
                   title: Text(
-                    course.courseName, // اسم الكورس
+                    course.courseName,
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 16),
                   ),
@@ -3018,7 +3366,6 @@ class _StudentDashboardState extends State<Student_Dashboard> {
               // شبكة الفئات (تتمدّد لملء المساحة)
               Expanded(
                 child: Obx(() {
-                  // مراقبة قائمة الفئات فقط داخل هذا الجزء
                   final categories = controller.categories;
                   return GridView.builder(
                     gridDelegate:
@@ -3032,16 +3379,20 @@ class _StudentDashboardState extends State<Student_Dashboard> {
                     itemBuilder: (ctx, idx) {
                       final cat = categories[idx]; // الفئة الحالية
                       return GestureDetector(
-                        // عند الضغط على الفئة: الذهاب لصفحة كورسات الفئة
                         onTap: () {
-                          final categoryId = getCategoryIdByName(
-                              cat.name); // تحويل الاسم إلى id
-                          if (categoryId != null) {
-                            Get.to(() => CoursesByCategoryView(
-                                  categoryName: cat.name, // تمرير اسم الفئة
-                                  categoryId: categoryId, // تمرير id الفئة
-                                ));
+                          // ★★★ التعديل المطلوب: استخدام id القادم من الـ API مباشرة
+                          final int? categoryId = cat.id; // يجب أن يكون موجودًا في الموديل
+                          if (categoryId == null || categoryId <= 0) {
+                            Get.snackbar('تنبيه',
+                                'لا يوجد معرّف صالح لهذه الفئة، جرّب تحديث الصفحة.',
+                                snackPosition: SnackPosition.BOTTOM);
+                            return;
                           }
+                          Get.to(() => CoursesByCategoryView(
+                                categoryName: cat.name,
+                                categoryId:
+                                    categoryId, // سيمرّ إلى fetchCoursesByCategoryId(<id>)
+                              ));
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -3058,14 +3409,14 @@ class _StudentDashboardState extends State<Student_Dashboard> {
                           ),
                           child: Column(
                             children: [
-                              // صورة الفئة (مأخوذة من المسار assetPath في الموديل)
+                              // صورة الفئة (لو عندك assetPath بالموديل)
                               Expanded(
                                 child: ClipRRect(
                                   borderRadius: const BorderRadius.vertical(
                                       top: Radius.circular(12)),
                                   child: Image.asset(
                                     cat.assetPath,
-                                    fit: BoxFit.fill, // تغطية المساحة المتاحة
+                                    fit: BoxFit.fill,
                                   ),
                                 ),
                               ),

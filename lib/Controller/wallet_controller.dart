@@ -192,6 +192,41 @@ class WalletController extends GetxController {
     fetchBalance();
   }
 
+  /// دالة مساعدة: تعرض رسالة، تنظّف التوكينات، ثم تنتقل لواجهة تسجيل الدخول بشكل مؤكّد
+  Future<void> _goToLogin(String message) async {
+    // اغلاق أي سنackbar مفتوحة أولًا (لتجنب منع التنقل)
+    Get.closeAllSnackbars();
+
+    // تنظيف التوكينات قبل الانتقال
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('token');
+    await prefs.remove('token_type');
+    await prefs.remove('refresh_token');
+
+    // عرض رسالة قصيرة تحت
+    Future.microtask(() {
+      Get.snackbar(
+        'Error',
+        message,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 2),
+      );
+    });
+
+    // أعطِ إطارًا واحدًا/لحظة للنظام لإنهاء أي Build/SnackBar ثم انتقل
+    await Future.delayed(const Duration(milliseconds: 120));
+
+    // الانتقال المؤكّد لواجهة تسجيل الدخول ومسح المكدّس
+    if (Get.isOverlaysOpen) {
+      // إغلاق أي حوارات/BottomSheets قد تعيق التنقل
+      Get.back(closeOverlays: true);
+      await Future.delayed(const Duration(milliseconds: 50));
+    }
+    Get.offAll(() => const Login());
+  }
+
   Future<void> fetchBalance() async {
     _isLoading.value = true;
 
@@ -204,13 +239,7 @@ class WalletController extends GetxController {
       // إذا لم نعثر على توكن ولا على توكن التحديث، نعيد المستخدم إلى صفحة تسجيل الدخول
       if (token.isEmpty && refreshToken.isEmpty) {
         _isLoading.value = false;
-        Get.snackbar(
-          'Error',
-          'You Must Login First',
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
-        Get.offAll(() => const Login());
+        await _goToLogin('You Must Login First');
         return;
       }
 
@@ -221,8 +250,16 @@ class WalletController extends GetxController {
             'Accept': 'application/json',
             'Authorization': '$tokenType $token',
           },
+          validateStatus: (_) => true, // حتى نقرأ رسائل السيرفر في غير 200
         ),
       );
+
+      // التعامل مع 401 مباشرة
+      if (response.statusCode == 401) {
+        _isLoading.value = false;
+        await _goToLogin('Session expired, please login.');
+        return;
+      }
 
       if (response.statusCode == 200) {
         final model =
@@ -230,19 +267,16 @@ class WalletController extends GetxController {
         _balance.value = model.balance;
       } else {
         // هنا نتفحص الرسالة العائدة من الـ API
-        final serverMsg =
-            response.data['message'] as String? ?? 'خطأ غير معروف';
+        final serverMsg = (response.data is Map
+                ? response.data['message']
+                : null) as String? ??
+            'خطأ غير معروف';
 
         // إذا كانت الرسالة تفيد بأن المستخدم ليس طالباً
         if (serverMsg == 'هذا المستخدم ليس طالبًا.') {
-          Get.snackbar(
-            'Error',
-            'You Must Login First',
-            backgroundColor: Colors.red,
-            colorText: Colors.white,
-          );
-          // نقل المستخدم مباشرةً لصفحة تسجيل الدخول ومسح كل الشاشات السابقة
-          Get.offAll(() => const Login());
+          _isLoading.value = false;
+          await _goToLogin('You Must Login First');
+          return;
         } else {
           // بصيغ أخرى من الأخطاء نعرض Snackbar فقط
           Get.snackbar(
@@ -250,16 +284,26 @@ class WalletController extends GetxController {
             serverMsg,
             backgroundColor: Colors.red,
             colorText: Colors.white,
+            snackPosition: SnackPosition.BOTTOM,
           );
         }
       }
     } on DioException catch (e) {
-      final msg = e.response?.data['message'] as String? ?? 'Connection Error';
+      final msg = (e.response?.data is Map ? e.response?.data['message'] : null)
+              as String? ??
+          'Connection Error';
+      // في حال 401 من داخل DioException
+      if (e.response?.statusCode == 401) {
+        _isLoading.value = false;
+        await _goToLogin('Session expired, please login.');
+        return;
+      }
       Get.snackbar(
         'Error',
         msg,
         backgroundColor: Colors.red,
         colorText: Colors.white,
+        snackPosition: SnackPosition.BOTTOM,
       );
     } catch (e) {
       Get.snackbar(
@@ -267,6 +311,7 @@ class WalletController extends GetxController {
         'UnExpected Error $e',
         backgroundColor: Colors.red,
         colorText: Colors.white,
+        snackPosition: SnackPosition.BOTTOM,
       );
     } finally {
       _isLoading.value = false;

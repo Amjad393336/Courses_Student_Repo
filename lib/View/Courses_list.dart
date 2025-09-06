@@ -12850,17 +12850,15 @@
 //   }
 // }
 
-
-
-import 'dart:io';                                     // قد تحتاجه للتعامل مع نظام الملفات/المنصّة (موجود هنا كما في كودك)
-import 'package:flutter/material.dart';               // عناصر واجهة Flutter
-import 'package:get/get.dart';                       // GetX لإدارة الحالة والتنقل
+import 'dart:io'; // قد تحتاجه للتعامل مع نظام الملفات/المنصّة (موجود هنا كما في كودك)
+import 'package:flutter/material.dart'; // عناصر واجهة Flutter
+import 'package:get/get.dart'; // GetX لإدارة الحالة والتنقل
 import 'package:project_2/Controller/dashboard_controller.dart'; // الكنترولر (إن احتجته في هذه الشاشة)
-import 'package:project_2/View/Exam_Screen.dart';    // شاشة الامتحان (مستوردة هنا كما في الكود)
+import 'package:project_2/View/Exam_Screen.dart'; // شاشة الامتحان (مستوردة هنا كما في الكود)
 import 'package:shared_preferences/shared_preferences.dart'; // للتخزين المحلي (مستوردة إن احتجتها)
-import 'package:dio/dio.dart';                       // Dio لطلبات الشبكة (مستوردة إن احتجتها)
-import 'package:video_player/video_player.dart';     // حزمة مشغل الفيديو
-import 'package:url_launcher/url_launcher.dart';     // لفتح الفيديو خارجيًا
+import 'package:dio/dio.dart'; // Dio لطلبات الشبكة (مستوردة إن احتجتها)
+import 'package:video_player/video_player.dart'; // حزمة مشغل الفيديو
+import 'package:url_launcher/url_launcher.dart'; // لفتح الفيديو خارجيًا
 
 /// ===============================
 /// شاشة مشغل الفيديو (مصدر الشبكة)
@@ -12927,7 +12925,10 @@ class _VideoPlayerCardScreenState extends State<VideoPlayerCardScreen> {
         _controller?.dispose();
         _controller = VideoPlayerController.networkUrl(
           Uri.parse(widget.videoUrl),
-          httpHeaders: {'Connection': 'close', 'User-Agent': 'MyApp/1.0 (ExoPlayer)'},
+          httpHeaders: {
+            'Connection': 'close',
+            'User-Agent': 'MyApp/1.0 (ExoPlayer)'
+          },
         );
         await _controller!.initialize();
         await _controller!.setPlaybackSpeed(_speed);
@@ -12936,13 +12937,18 @@ class _VideoPlayerCardScreenState extends State<VideoPlayerCardScreen> {
         return;
       } catch (_) {
         setState(() {
-          _isLoading = false;                           // أوقف التحميل
-          _hasError = true;                             // علّم بوجود خطأ
-          _errorMsg = 'تعذّر تشغيل الفيديو داخليًا.';   // رسالة مختصرة بدل الاستثناء الكامل
+          _isLoading = false; // أوقف التحميل
+          _hasError = true; // علّم بوجود خطأ
+          _errorMsg =
+              'تعذّر تشغيل الفيديو داخليًا.'; // رسالة مختصرة بدل الاستثناء الكامل
         });
-        if (mounted) {                                  // تأكد أن الودجت ما زال على الشاشة
-          ScaffoldMessenger.of(context).showSnackBar(   // SnackBar مختصرة بدون طباعة الاستثناء
-            const SnackBar(content: Text('تعذّر تشغيل الفيديو داخليًا'), backgroundColor: Colors.red),
+        if (mounted) {
+          // تأكد أن الودجت ما زال على الشاشة
+          ScaffoldMessenger.of(context).showSnackBar(
+            // SnackBar مختصرة بدون طباعة الاستثناء
+            const SnackBar(
+                content: Text('تعذّر تشغيل الفيديو داخليًا'),
+                backgroundColor: Colors.red),
           );
         }
       }
@@ -12954,7 +12960,9 @@ class _VideoPlayerCardScreenState extends State<VideoPlayerCardScreen> {
     final uri = Uri.tryParse(widget.videoUrl);
     if (uri == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('رابط الفيديو غير صالح'), backgroundColor: Colors.red),
+        const SnackBar(
+            content: Text('رابط الفيديو غير صالح'),
+            backgroundColor: Colors.red),
       );
       return;
     }
@@ -12968,13 +12976,17 @@ class _VideoPlayerCardScreenState extends State<VideoPlayerCardScreen> {
         final ok2 = await launchUrl(uri, mode: LaunchMode.platformDefault);
         if (!ok2) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('تعذّر فتح الفيديو خارجيًا'), backgroundColor: Colors.red),
+            const SnackBar(
+                content: Text('تعذّر فتح الفيديو خارجيًا'),
+                backgroundColor: Colors.red),
           );
         }
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('خطأ أثناء الفتح الخارجي: $e'), backgroundColor: Colors.red),
+        SnackBar(
+            content: Text('خطأ أثناء الفتح الخارجي: $e'),
+            backgroundColor: Colors.red),
       );
     }
   }
@@ -12997,7 +13009,7 @@ class _VideoPlayerCardScreenState extends State<VideoPlayerCardScreen> {
     if (c == null || !c.value.isInitialized) return; // تأكد من الجاهزية
 
     final currentPos = await c.position ?? Duration.zero; // موقع دقيق
-    final wasPlaying = c.value.isPlaying;                 // احفظ حالة التشغيل
+    final wasPlaying = c.value.isPlaying; // احفظ حالة التشغيل
 
     final total = c.value.duration;
     Duration target = currentPos + offset;
@@ -13008,15 +13020,15 @@ class _VideoPlayerCardScreenState extends State<VideoPlayerCardScreen> {
       target = total;
     }
 
-    await c.seekTo(target);   // قفز إلى الموضع الهدف
+    await c.seekTo(target); // قفز إلى الموضع الهدف
     if (wasPlaying) await c.play(); // استعادة الحالة
-    setState(() {});           // حدّث الواجهة
+    setState(() {}); // حدّث الواجهة
   }
 
   Future<void> _cycleSpeed() async {
     // تدوير سرعة التشغيل بين مجموعة قيم
     const speeds = [1.0, 1.25, 1.5, 2.0]; // سرعات مدعومة
-    final idx = speeds.indexOf(_speed);   // موقع السرعة الحالية
+    final idx = speeds.indexOf(_speed); // موقع السرعة الحالية
     _speed = speeds[(idx + 1) % speeds.length]; // انتقل للسرعة التالية
     if (_controller != null) {
       final wasPlaying = _controller!.value.isPlaying;
@@ -13024,7 +13036,9 @@ class _VideoPlayerCardScreenState extends State<VideoPlayerCardScreen> {
       if (wasPlaying) await _controller!.play();
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('السرعة: ${_speed}x'), duration: const Duration(seconds: 1)),
+          SnackBar(
+              content: Text('السرعة: ${_speed}x'),
+              duration: const Duration(seconds: 1)),
         );
         setState(() {}); // تحديث عرض الزر
       }
@@ -13044,11 +13058,15 @@ class _VideoPlayerCardScreenState extends State<VideoPlayerCardScreen> {
           //   icon: const Icon(Icons.replay_10, color: Colors.white),
           // ),
           IconButton(
-            tooltip: (_controller?.value.isPlaying ?? false) ? 'إيقاف مؤقت' : 'تشغيل',
+            tooltip: (_controller?.value.isPlaying ?? false)
+                ? 'إيقاف مؤقت'
+                : 'تشغيل',
             iconSize: 34,
             onPressed: _togglePlay,
             icon: Icon(
-              (_controller?.value.isPlaying ?? false) ? Icons.pause_circle_filled : Icons.play_circle_fill,
+              (_controller?.value.isPlaying ?? false)
+                  ? Icons.pause_circle_filled
+                  : Icons.play_circle_fill,
               color: Colors.white,
             ),
           ),
@@ -13102,11 +13120,15 @@ class _VideoPlayerCardScreenState extends State<VideoPlayerCardScreen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.video_file_outlined, size: 64, color: Colors.white70),
+                      const Icon(Icons.video_file_outlined,
+                          size: 64, color: Colors.white70),
                       const SizedBox(height: 12),
                       const Text(
                         'تعذّر تشغيل الفيديو داخل التطبيق',
-                        style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 8),
@@ -13128,8 +13150,10 @@ class _VideoPlayerCardScreenState extends State<VideoPlayerCardScreen> {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.deepPurple.shade200,
                               foregroundColor: Colors.black,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
-                              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(28)),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 18, vertical: 12),
                             ),
                           ),
                           OutlinedButton.icon(
@@ -13139,8 +13163,10 @@ class _VideoPlayerCardScreenState extends State<VideoPlayerCardScreen> {
                             style: OutlinedButton.styleFrom(
                               foregroundColor: Colors.white,
                               side: const BorderSide(color: Colors.white54),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
-                              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(28)),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 18, vertical: 12),
                             ),
                           ),
                         ],
@@ -13151,7 +13177,9 @@ class _VideoPlayerCardScreenState extends State<VideoPlayerCardScreen> {
               );
             }
 
-            if (_isLoading || _controller == null || !_controller!.value.isInitialized) {
+            if (_isLoading ||
+                _controller == null ||
+                !_controller!.value.isInitialized) {
               return const Center(
                 child: CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color?>(Colors.deepPurple),
@@ -13283,29 +13311,29 @@ class _CoursesByCategoryViewState extends State<CoursesByCategoryView> {
   }
 
   Future<void> _watchFlow(BuildContext context, int courseId) async {
-    const alreadyMsg = 'Student is already registered for this course';
+    // const alreadyMsg = 'Student is already registered for this course';
     try {
       final headers = await _authHeaders();
 
-      final regResp = await Dio().post(
-        'http://192.168.1.5:8000/api/courses/register',
-        data: {'course_id': courseId.toString()},
-        options: Options(headers: headers, validateStatus: (_) => true),
-      );
+      // final regResp = await Dio().post(
+      //   'http://192.168.1.5:8000/api/courses/register',
+      //   data: {'course_id': courseId.toString()},
+      //   options: Options(headers: headers, validateStatus: (_) => true),
+      // );
 
-      final serverMsg = (regResp.data is Map && regResp.data['message'] != null)
-          ? regResp.data['message'].toString()
-          : '';
+      // final serverMsg = (regResp.data is Map && regResp.data['message'] != null)
+      //     ? regResp.data['message'].toString()
+      //     : '';
 
-      final isAllowed = serverMsg.contains(alreadyMsg);
-      if (!isAllowed) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-              content: Text('يلزم التسجيل في الكورس أولًا'),
-              backgroundColor: Colors.orange),
-        );
-        return;
-      }
+      // final isAllowed = serverMsg.contains(alreadyMsg);
+      // if (!isAllowed) {
+      //   ScaffoldMessenger.of(context).showSnackBar(
+      //     const SnackBar(
+      //         content: Text('يلزم التسجيل في الكورس أولًا'),
+      //         backgroundColor: Colors.orange),
+      //   );
+      //   return;
+      // }
 
       final videosResp = await Dio().get(
         'http://192.168.1.5:8000/api/courses/$courseId/videos',
@@ -13370,30 +13398,70 @@ class _CoursesByCategoryViewState extends State<CoursesByCategoryView> {
     return LayoutBuilder(
       builder: (ctx, constraints) {
         final isWide = constraints.maxWidth >= 640;
-        final buttonHeight = 46.0;
+        final buttonHeight = 48.0;
+        final radius = 14.0;
 
-        final registerBtn = ElevatedButton.icon(
-          onPressed: () async => registerOnCourse(context, course.courseId),
-          icon: const Icon(Icons.check_circle_outline,
-              color: Colors.white, size: 20),
-          label: const Text('Register',
-              maxLines: 1,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600)),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.blue.shade700,
-            elevation: 0,
-            minimumSize: Size(0, buttonHeight),
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(9)),
-          ),
+        // صانع زر مخصص مع تدرّج وظلّ
+        Widget _fancyButton({
+          required VoidCallback onTap,
+          required IconData icon,
+          required String label,
+          required List<Color> gradient,
+          Color? foreground,
+        }) {
+          return Semantics(
+            button: true,
+            label: label,
+            child: InkWell(
+              onTap: onTap,
+              borderRadius: BorderRadius.circular(radius),
+              child: Ink(
+                height: buttonHeight,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(colors: gradient),
+                  borderRadius: BorderRadius.circular(radius),
+                  boxShadow: [
+                    BoxShadow(
+                      color: gradient.last.withOpacity(0.25),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(icon, color: foreground ?? Colors.white, size: 20),
+                      const SizedBox(width: 8),
+                      Text(
+                        label,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: foreground ?? Colors.white,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 0.2,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        }
+
+        // الأزرار الأربعة بنفس السلوك السابق
+        final registerBtn = _fancyButton(
+          onTap: () async => registerOnCourse(context, course.courseId),
+          icon: Icons.check_circle_outline,
+          label: 'Register',
+          gradient: [Colors.blue.shade600, Colors.blue.shade800],
         );
 
-        final detailsBtn = OutlinedButton.icon(
-          onPressed: () {
+        final detailsBtn = _fancyButton(
+          onTap: () {
             Get.defaultDialog(
               title: course.courseName,
               content: Column(
@@ -13407,63 +13475,29 @@ class _CoursesByCategoryViewState extends State<CoursesByCategoryView> {
               ),
             );
           },
-          icon: Icon(Icons.info_outline, color: Colors.blue.shade700, size: 20),
-          label: Text('Details',
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                  color: Colors.blue.shade700,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600)),
-          style: OutlinedButton.styleFrom(
-            side: BorderSide(color: Colors.blue.shade200, width: 1.3),
-            backgroundColor: Colors.blue.shade50,
-            minimumSize: Size(0, buttonHeight),
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(9)),
-          ),
+          icon: Icons.info_outline,
+          label: 'Details',
+          // تدرّج فاتح مع نص داكن
+          gradient: [Colors.blue.shade50, Colors.blue.shade100],
+          foreground: Colors.blue.shade700,
         );
 
-        final watchBtn = ElevatedButton.icon(
-          onPressed: () async => _watchFlow(context, course.courseId),
-          icon: const Icon(Icons.play_circle_outline,
-              color: Colors.white, size: 20),
-          label: const Text('Watch',
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600)),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.deepPurple.shade400,
-            minimumSize: Size(0, buttonHeight),
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(9)),
-          ),
+        final watchBtn = _fancyButton(
+          onTap: () async => _watchFlow(context, course.courseId),
+          icon: Icons.play_circle_outline,
+          label: 'Watch',
+          gradient: [Colors.deepPurple.shade400, Colors.deepPurple.shade700],
         );
 
-        final examBtn = ElevatedButton.icon(
-          onPressed: () => _onExamPressed(context, course),
-          icon: const Icon(Icons.fact_check_outlined,
-              color: Colors.white, size: 20),
-          label: const Text('Exam',
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.teal.shade600,
-            minimumSize: Size(0, buttonHeight),
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(9)),
-          ),
+        final examBtn = _fancyButton(
+          onTap: () => _onExamPressed(context, course),
+          icon: Icons.fact_check_outlined,
+          label: 'Exam',
+          gradient: [Colors.teal.shade500, Colors.teal.shade700],
         );
 
         if (isWide) {
+          // صف واحد على الشاشات الواسعة
           return Row(
             children: [
               Expanded(child: registerBtn),
@@ -13476,15 +13510,16 @@ class _CoursesByCategoryViewState extends State<CoursesByCategoryView> {
             ],
           );
         } else {
-          return Column(
+          // شبكة 2×2 للموبايل
+          final itemWidth = (constraints.maxWidth - 10) / 2;
+          return Wrap(
+            spacing: 10,
+            runSpacing: 10,
             children: [
-              SizedBox(width: double.infinity, child: registerBtn),
-              const SizedBox(height: 10),
-              SizedBox(width: double.infinity, child: detailsBtn),
-              const SizedBox(height: 10),
-              SizedBox(width: double.infinity, child: watchBtn),
-              const SizedBox(height: 10),
-              SizedBox(width: double.infinity, child: examBtn),
+              SizedBox(width: itemWidth, child: registerBtn),
+              SizedBox(width: itemWidth, child: detailsBtn),
+              SizedBox(width: itemWidth, child: watchBtn),
+              SizedBox(width: itemWidth, child: examBtn),
             ],
           );
         }
